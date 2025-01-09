@@ -1,0 +1,7 @@
+server:
+  port: 7788
+spring:
+  application:
+    name: purepicks-manager
+  profiles:
+    active: dev
