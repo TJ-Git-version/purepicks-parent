@@ -15,7 +15,8 @@ import lombok.Getter;
 public enum RedisKeyConstant {
 
     LOGIN_TOKEN("user:login:token:{}"),
-    LOGIN_REFRESH_TOKEN("user:login:refreshToken:{}");
+    LOGIN_REFRESH_TOKEN("user:login:refreshToken:{}"),
+    LOGIN_VALIDATE_CODE("user:login:validateCode:{}");
 
     private final String key;
 

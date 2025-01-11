@@ -29,6 +29,11 @@ public class ResultUtil<T> implements Serializable {
         return ok(null, ResultCodeEnum.SUCCESS);
     }
 
+    public static <T> ResultUtil<T> ok(T data) {
+        ResultCodeEnum resultCodeEnum = ResultCodeEnum.SUCCESS;
+        return ResultUtil.build(resultCodeEnum.getCode(), resultCodeEnum.getMessage(), data);
+    }
+
     public static <T> ResultUtil<T> ok(T data, ResultCodeEnum resultCodeEnum) {
         return ResultUtil.build(resultCodeEnum.getCode(), resultCodeEnum.getMessage(), data);
     }

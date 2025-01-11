@@ -1,19 +1,18 @@
 package com.devsurfer.purepicks.manager.controller;
 
 import com.devsurfer.purepicks.manager.service.PortalService;
+import com.devsurfer.purepicks.manager.service.ValidateCodeService;
 import com.devsurfer.purepicks.model.dto.system.LoginDto;
 import com.devsurfer.purepicks.model.dto.system.LoginTokenDto;
 import com.devsurfer.purepicks.model.result.ResultCodeEnum;
 import com.devsurfer.purepicks.model.result.ResultUtil;
 import com.devsurfer.purepicks.model.vo.system.LoginUserInfoVo;
 import com.devsurfer.purepicks.model.vo.system.LoginVo;
+import com.devsurfer.purepicks.model.vo.system.ValidateCodeVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Dev Surfer
@@ -29,6 +28,8 @@ public class PortalController {
 
     private final PortalService portalService;
 
+    private final ValidateCodeService validateCodeService;
+
     @Operation(description = "用户登录: 使用账号密码登录")
     @PostMapping("/login-account-password")
     public ResultUtil<LoginVo> loginAccountPassword(@RequestBody LoginDto loginDto) {
@@ -43,5 +44,10 @@ public class PortalController {
         return ResultUtil.ok(portalService.loginUserInfo(loginTokenDto), ResultCodeEnum.SUCCESS);
     }
 
+    @Operation(description = "获取登录验证码")
+    @GetMapping("/generateValidateCode")
+    public ResultUtil<ValidateCodeVo> generateValidateCode() {
+        return ResultUtil.ok(validateCodeService.generateValidateCode());
+    }
 
 }
