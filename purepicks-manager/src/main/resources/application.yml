@@ -1,7 +1,20 @@
 server:
-  port: 7788
+  port: 8000
 spring:
   application:
     name: purepicks-manager
   profiles:
     active: dev
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'manager-api'
+      paths-to-match: '/admin/**'
+      packages-to-scan: com.devsurfer.purepicks.manager.controller
