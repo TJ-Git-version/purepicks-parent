@@ -1,23 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="true">
-    <!-- 指定日志输出的位置，ConsoleAppender表示输出到控制台 -->
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+<configuration>
+
+    <contextName>logback</contextName>
+
+    <!-- 日志的输出目录 -->
+    <property name="log.path" value="./logs" />
+
+    <!--控制台日志格式：彩色日志-->
+    <!-- magenta:洋红 -->
+    <!-- boldMagenta:粗红-->
+    <!-- cyan:青色 -->
+    <!-- white:白色 -->
+    <!-- magenta:洋红 -->
+    <property name="CONSOLE_LOG_PATTERN" value="%yellow(%date{yyyy-MM-dd HH:mm:ss}) %highlight([%-5level]) %green(%logger) %msg%n"/>
+
+    <!--文件日志格式-->
+    <property name="FILE_LOG_PATTERN" value="%date{yyyy-MM-dd HH:mm:ss} [%-5level] %thread %file:%line %logger %msg%n" />
+
+    <!--编码-->
+    <property name="ENCODING" value="UTF-8" />
+
+    <!-- 控制台日志 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 临界值过滤器 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
         <encoder>
-            <!-- 日志输出的格式 -->
-            <!-- 按照顺序分别是：时间、日志级别、线程名称、打印日志的类、日志主体内容、换行 -->
-            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%-5level] [%thread] [%logger] [%msg]%n</pattern>
-            <charset>UTF-8</charset>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>${ENCODING}</charset>
         </encoder>
     </appender>
 
-    <!-- 设置全局日志级别。日志级别按顺序分别是：TRACE、DEBUG、INFO、WARN、ERROR -->
-    <!-- 指定任何一个日志级别都只打印当前级别和后面级别的日志。 -->
-    <root level="DEBUG">
-        <!-- 指定打印日志的appender格式，这里通过“STDOUT”引用了前面配置的appender -->
-        <appender-ref ref="STDOUT"/>
-    </root>
+    <!-- 文件日志 -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${log.path}//log.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss} %msg%n</pattern>
+            <charset>${ENCODING}</charset>
+        </encoder>
+    </appender>
 
-    <!-- 根据特殊需求指定局部日志级别，可也是包名或全类名。 -->
-    <logger name="com.devsurfer.purepicks.manager" level="DEBUG"/>
+    <!-- 开发环境 -->
+    <springProfile name="dev">
+        <!-- com.atguigu日志记录器：业务程序INFO级别  -->
+        <logger name="com.devsurfer.purepicks" level="INFO" />
+        <!-- 根日志记录器：INFO级别  -->
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="FILE" />
+        </root>
+    </springProfile>
 
 </configuration>
