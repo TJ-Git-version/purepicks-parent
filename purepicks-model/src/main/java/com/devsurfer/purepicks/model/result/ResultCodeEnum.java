@@ -14,7 +14,16 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ResultCodeEnum {
 
-    SUCCESS(200, "操作成功");
+    SUCCESS(200, "操作成功"),
+    SYSTEM_ERROR(201, "系统异常"),
+    PARAMETER_INVALID_ERROR(202, "参数非法"),
+
+    /* 用户模块 260-300*/
+    USER_USERNAME_NOT_EXITS_ERROR(260, "用户名不存在"),
+    USER_USERNAME_FROZEN_ERROR(261, "当前用户已被冻结"),
+    USER_PASSWORD_ERROR(262, "密码错误,请重新输入"),
+
+    ;
 
     private final Integer code;
 

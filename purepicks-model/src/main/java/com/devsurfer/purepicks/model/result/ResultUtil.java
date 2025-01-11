@@ -30,11 +30,19 @@ public class ResultUtil<T> implements Serializable {
     }
 
     public static <T> ResultUtil<T> ok(T data, ResultCodeEnum resultCodeEnum) {
-        return ResultUtil.build(resultCodeEnum, data);
+        return ResultUtil.build(resultCodeEnum.getCode(), resultCodeEnum.getMessage(), data);
     }
 
-    private static <T> ResultUtil<T> build(ResultCodeEnum resultCodeEnum, T data) {
-        return new ResultUtil<>(resultCodeEnum.getCode(), resultCodeEnum.getMessage(), data);
+    public static <T> ResultUtil<T> error(ResultCodeEnum resultCodeEnum) {
+        return ResultUtil.build(resultCodeEnum.getCode(), resultCodeEnum.getMessage(), null);
+    }
+
+    public static <T> ResultUtil<T> error(Integer code, String message) {
+        return ResultUtil.build(code, message, null);
+    }
+
+    private static <T> ResultUtil<T> build(Integer code, String message, T data) {
+        return new ResultUtil<>(code, message, data);
     }
 
 }
