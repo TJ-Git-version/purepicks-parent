@@ -29,6 +29,13 @@ spring:
       leak-detection-threshold: 2000
       # 是否使用数据库的连接验证机制，避免长时间没有使用连接而被数据库回收
       validation-timeout: 5000
+  data:
+    redis:
+      host: 127.0.0.1
+      database: 2
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 
 mybatis:
   configuration:

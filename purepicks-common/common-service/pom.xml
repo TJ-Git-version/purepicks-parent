@@ -25,12 +25,6 @@
             <artifactId>common-util</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!--公共实体类模块-->
-        <dependency>
-            <groupId>com.devsurfer.purepicks.model</groupId>
-            <artifactId>purepicks-model</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
         <!--spring boot 启步依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
