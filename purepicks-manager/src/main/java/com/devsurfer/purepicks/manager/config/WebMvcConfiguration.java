@@ -1,7 +1,9 @@
 package com.devsurfer.purepicks.manager.config;
 
 import com.devsurfer.purepicks.manager.interceptor.LoginInterceptor;
+import com.devsurfer.purepicks.manager.properties.UserAuthProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -13,14 +15,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * description WebMvcConfigurer配置类
  */
 @Configuration
+@Import(UserAuthProperties.class)
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
     private final LoginInterceptor loginInterceptor;
 
-    public WebMvcConfiguration(LoginInterceptor loginInterceptor) {
-        this.loginInterceptor = loginInterceptor;
-    }
+    private final UserAuthProperties userAuthProperties;
 
+    public WebMvcConfiguration(LoginInterceptor loginInterceptor, UserAuthProperties userAuthProperties) {
+        this.loginInterceptor = loginInterceptor;
+        this.userAuthProperties = userAuthProperties;
+    }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -33,15 +38,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loginInterceptor)
-                .excludePathPatterns(
-                        "/admin/system/portal/login-account-password",
-                        "/admin/system/portal/generateValidateCode",
-                        "/doc.html",
-                        "/webjars/**",
-                        "/v3/api-docs/**",
-                        "/swagger-ui.html"
-                )
-                .addPathPatterns("/**");
+        registry.addInterceptor(loginInterceptor).excludePathPatterns(userAuthProperties.getNoAuthUrls()).addPathPatterns("/**");
     }
 }
