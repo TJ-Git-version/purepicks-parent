@@ -2,8 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.devsurfer.purepicks.manager.mapper.SysUserMapper">
 
+    <resultMap id="userBaseMap" type="com.devsurfer.purepicks.model.entity.system.SysUser">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="nickname" column="nickname"/>
+        <result property="phone" column="phone"/>
+        <result property="avatar" column="avatar"/>
+        <result property="desc" column="desc"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+    </resultMap>
+
+    <resultMap id="userVoMap" type="com.devsurfer.purepicks.model.vo.system.user.SysUserVo">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="nickname" column="nickname"/>
+        <result property="phone" column="phone"/>
+        <result property="avatar" column="avatar"/>
+        <result property="desc" column="desc"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
     <sql id="user_column">
-        id, username, nickname, password, phone, avatar, `desc`, status, create_time, update_time, is_deleted
+        id, username, nickname,`password`, phone, avatar, `desc`, `status`, create_time, update_time, is_deleted
+    </sql>
+
+    <sql id="user_vo_column">
+        id, username, nickname, phone, avatar, `desc`, `status`, create_time, update_time
     </sql>
 
     <select id="selectByUserName" resultType="com.devsurfer.purepicks.model.entity.system.SysUser">
@@ -13,5 +42,74 @@
         where `username` = #{username}
         and `is_deleted` = 1
     </select>
+
+    <select id="findUserList" resultMap="userVoMap">
+        select
+        <include refid="user_vo_column"/>
+        from `sys_user`
+        <where>
+            `is_deleted` = 1
+            <if test="keyword != null and keyword != ''">
+                and (
+                `username` like concat('%', #{keyword}, '%') or
+                `nickname` like concat('%', #{keyword}, '%') or
+                `phone` like concat('%', #{keyword}, '%')
+                )
+            </if>
+            <if test="createTimeBegin != null and createTimeEnd != null">
+                and `create_time` between #{createTimeBegin} and #{createTimeEnd}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertUser">
+        insert into `sys_user` (username, nickname, password, phone, avatar, `desc`, status)
+        values (#{username}, #{nickname}, #{password}, #{phone}, #{avatar}, #{desc}, #{status})
+    </insert>
+
+    <select id="selectByIdAndUserName" resultMap="userBaseMap">
+        select <include refid="user_column"/>
+        from `sys_user`
+        where `username` = #{username} and `id` = #{id}
+        and `is_deleted` = 1
+    </select>
+
+    <update id="updateUser">
+        update `sys_user`
+        <set>
+            <if test="username != null and username != ''">
+                `username` = #{username},
+            </if>
+            <if test="nickname != null and nickname != ''">
+                `nickname` = #{nickname},
+            </if>
+            <if test="phone != null">
+                `phone` = #{phone},
+            </if>
+            <if test="avatar != null">
+                `avatar` = #{avatar},
+            </if>
+            <if test="desc != null">
+                `desc` = #{desc},
+            </if>
+            `update_time` = CURRENT_TIMESTAMP
+        </set>
+        where `id` = #{id} and `is_deleted` = 1
+    </update>
+
+    <update id="deleteUserInId">
+        update `sys_user`
+        set `is_deleted` = 0
+        where `id` in
+        <foreach collection="roleIds" item="roleId" open="(" close=")" separator=",">
+            #{roleId}
+        </foreach>
+    </update>
+
+    <update id="updateUserStatus">
+        update `sys_user`
+        set `status` = #{status}
+        where `id` = #{userId}
+    </update>
 
 </mapper>

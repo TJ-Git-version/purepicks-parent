@@ -31,25 +31,25 @@ public class PortalController {
 
     private final ValidateCodeService validateCodeService;
 
-    @Operation(description = "用户登录: 使用账号密码登录")
+    @Operation(summary = "用户登录", description = "用户登录: 使用账号密码登录")
     @PostMapping("/login-account-password")
     public ResultUtil<LoginVo> loginAccountPassword(@RequestBody LoginDto loginDto) {
         return ResultUtil.ok(portalService.loginAccountPassword(loginDto), ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(description = "获取登录用户信息")
+    @Operation(summary = "获取用户信息", description = "获取登录用户信息")
     @PostMapping("/login-user-info")
     public ResultUtil<LoginUserInfoVo> loginUserInfo() {
         return ResultUtil.ok(AuthContextUtil.get(), ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(description = "获取登录验证码")
+    @Operation(summary = "获取登录验证码", description = "获取登录验证码")
     @GetMapping("/generateValidateCode")
     public ResultUtil<ValidateCodeVo> generateValidateCode() {
         return ResultUtil.ok(validateCodeService.generateValidateCode());
     }
 
-    @Operation(description = "退出登录")
+    @Operation(summary = "退出登录", description = "退出登录")
     @PostMapping("/logout")
     public ResultUtil<?> logout(@RequestBody LoginTokenDto loginTokenDto) {
         portalService.logout(loginTokenDto);

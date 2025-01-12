@@ -2,6 +2,7 @@ package com.devsurfer.purepicks.model.entity.system;
 
 import com.devsurfer.purepicks.model.entity.base.BaseEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serial;
 
@@ -12,6 +13,7 @@ import java.io.Serial;
  * description 系统用户实体类
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class SysUser extends BaseEntity {
 
     @Serial
