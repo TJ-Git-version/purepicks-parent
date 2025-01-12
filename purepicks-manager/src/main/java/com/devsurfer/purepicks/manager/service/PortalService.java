@@ -23,4 +23,9 @@ public interface PortalService {
      */
     LoginUserInfoVo loginUserInfo(LoginTokenDto loginTokenDto);
 
+    /**
+     * 退出登录
+     */
+    void logout(LoginTokenDto loginTokenDto);
+
 }

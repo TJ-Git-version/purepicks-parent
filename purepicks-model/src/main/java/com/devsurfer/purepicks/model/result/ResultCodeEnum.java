@@ -22,7 +22,8 @@ public enum ResultCodeEnum {
     USER_USERNAME_NOT_EXITS_ERROR(260, "用户名不存在"),
     USER_USERNAME_FROZEN_ERROR(261, "当前用户已被冻结"),
     USER_PASSWORD_ERROR(262, "密码错误,请重新输入"),
-
+    USER_LOGIN_VALIDATE_CODE_ERROR(263, "验证码错误，请重新输入"),
+    USER_LOGIN_VALIDATE_CODE_EXPIRE_ERROR(264, "验证码已过期，请重新获取"),
     ;
 
     private final Integer code;

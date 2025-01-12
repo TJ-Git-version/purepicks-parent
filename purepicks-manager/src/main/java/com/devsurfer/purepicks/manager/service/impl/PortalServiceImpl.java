@@ -39,9 +39,22 @@ public class PortalServiceImpl implements PortalService {
     @Override
     public LoginVo loginAccountPassword(LoginDto loginDto) {
         // 用户名和密码不能为空
-        if (StrUtil.isBlank(loginDto.getUsername()) || StrUtil.isBlank(loginDto.getPassword())) {
+        if (StrUtil.isBlank(loginDto.getUsername()) || StrUtil.isBlank(loginDto.getPassword()) || StrUtil.isBlank(loginDto.getCaptchaKey()) || StrUtil.isBlank(loginDto.getInputCaptcha())) {
             PurePicksException.error(ResultCodeEnum.PARAMETER_INVALID_ERROR);
         }
+        String loginValidateCodeRedisKey = RedisKeyConstant.build(RedisKeyConstant.LOGIN_VALIDATE_CODE, loginDto.getCaptchaKey());
+        String validateCode = (String) redisTemplate.opsForValue().get(loginValidateCodeRedisKey);
+        // 校验验证码是否已过期
+        if (StrUtil.isBlank(validateCode)) {
+            PurePicksException.error(ResultCodeEnum.USER_LOGIN_VALIDATE_CODE_EXPIRE_ERROR);
+        }
+        // 校验验证码是否合法
+        if (!Objects.equals(validateCode.toLowerCase(), loginDto.getInputCaptcha().toLowerCase())) {
+            PurePicksException.error(ResultCodeEnum.USER_LOGIN_VALIDATE_CODE_ERROR);
+        }
+
+        // 验证通过在redis中删除验证码
+        redisTemplate.delete(loginValidateCodeRedisKey);
 
         // 校验用户名是否存在
         SysUser sysUser = sysUserMapper.selectByUserName(loginDto.getUsername());
@@ -66,7 +79,7 @@ public class PortalServiceImpl implements PortalService {
 
         // 将登录令牌保存到redis中
         redisTemplate.opsForValue().set(RedisKeyConstant.build(RedisKeyConstant.LOGIN_TOKEN, token), JSONUtil.toJsonStr(sysUser), 30, TimeUnit.MINUTES);
-        redisTemplate.opsForValue().set(RedisKeyConstant.build(RedisKeyConstant.LOGIN_REFRESH_TOKEN, refreshToken), token, 30, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(RedisKeyConstant.build(RedisKeyConstant.LOGIN_REFRESH_TOKEN, refreshToken), token, 35, TimeUnit.MINUTES);
 
         // 响应给客户端
         return new LoginVo(token, refreshToken);
@@ -83,6 +96,18 @@ public class PortalServiceImpl implements PortalService {
             PurePicksException.error(ResultCodeEnum.PARAMETER_INVALID_ERROR);
         }
         return BeanUtil.copyProperties(JSONUtil.toBean(JSONUtil.toJsonStr(sysUser), SysUser.class), LoginUserInfoVo.class);
+    }
+
+    @Override
+    public void logout(LoginTokenDto loginTokenDto) {
+        // 校验参数是否合法
+        if (loginTokenDto == null || StrUtil.isBlank(loginTokenDto.getToken()) || StrUtil.isBlank(loginTokenDto.getRefreshToken())) {
+            PurePicksException.error(ResultCodeEnum.PARAMETER_INVALID_ERROR);
+        }
+        String loginTokenRedisKey = RedisKeyConstant.build(RedisKeyConstant.LOGIN_TOKEN, loginTokenDto.getToken());
+        String loginRefreshTokenRedisKey = RedisKeyConstant.build(RedisKeyConstant.LOGIN_REFRESH_TOKEN, loginTokenDto.getRefreshToken());
+        redisTemplate.delete(loginTokenRedisKey);
+        redisTemplate.delete(loginRefreshTokenRedisKey);
     }
 
 

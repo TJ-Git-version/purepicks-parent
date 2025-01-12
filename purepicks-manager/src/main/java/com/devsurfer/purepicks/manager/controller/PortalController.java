@@ -50,4 +50,12 @@ public class PortalController {
         return ResultUtil.ok(validateCodeService.generateValidateCode());
     }
 
+    @Operation(description = "退出登录")
+    @PostMapping("/logout")
+    public ResultUtil<?> logout(@RequestBody LoginTokenDto loginTokenDto) {
+        portalService.logout(loginTokenDto);
+        return ResultUtil.ok();
+    }
+
+
 }
