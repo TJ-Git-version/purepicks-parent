@@ -36,8 +36,6 @@ public class PortalController {
         return ResultUtil.ok(portalService.loginAccountPassword(loginDto), ResultCodeEnum.SUCCESS);
     }
 
-
-
     @Operation(description = "获取登录用户信息")
     @PostMapping("/login-user-info")
     public ResultUtil<LoginUserInfoVo> loginUserInfo(@RequestBody LoginTokenDto loginTokenDto) {
@@ -56,6 +54,5 @@ public class PortalController {
         portalService.logout(loginTokenDto);
         return ResultUtil.ok();
     }
-
 
 }

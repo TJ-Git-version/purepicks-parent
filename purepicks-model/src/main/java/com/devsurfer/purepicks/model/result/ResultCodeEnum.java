@@ -24,6 +24,7 @@ public enum ResultCodeEnum {
     USER_PASSWORD_ERROR(262, "密码错误,请重新输入"),
     USER_LOGIN_VALIDATE_CODE_ERROR(263, "验证码错误，请重新输入"),
     USER_LOGIN_VALIDATE_CODE_EXPIRE_ERROR(264, "验证码已过期，请重新获取"),
+    USER_NOT_LOGIN_ERROR(265, "令牌过期，请重新登陆"),
     ;
 
     private final Integer code;
