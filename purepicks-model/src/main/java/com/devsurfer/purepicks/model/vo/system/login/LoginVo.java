@@ -1,4 +1,4 @@
-package com.devsurfer.purepicks.model.vo.system;
+package com.devsurfer.purepicks.model.vo.system.login;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;

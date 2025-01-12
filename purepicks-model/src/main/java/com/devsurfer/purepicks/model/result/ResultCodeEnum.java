@@ -25,6 +25,11 @@ public enum ResultCodeEnum {
     USER_LOGIN_VALIDATE_CODE_ERROR(263, "验证码错误，请重新输入"),
     USER_LOGIN_VALIDATE_CODE_EXPIRE_ERROR(264, "验证码已过期，请重新获取"),
     USER_NOT_LOGIN_ERROR(265, "令牌过期，请重新登陆"),
+
+    /* 角色模块 301~*/
+    ROLE_NAME_EXISTS_ERROR(301, "角色名称已存在,请查询输入"),
+    ROLE_CODE_EXISTS_ERROR(301, "角色编号已存在,请查询输入"),
+
     ;
 
     private final Integer code;

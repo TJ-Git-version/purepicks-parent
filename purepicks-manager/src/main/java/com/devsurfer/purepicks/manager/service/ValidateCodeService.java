@@ -1,6 +1,6 @@
 package com.devsurfer.purepicks.manager.service;
 
-import com.devsurfer.purepicks.model.vo.system.ValidateCodeVo;
+import com.devsurfer.purepicks.model.vo.system.login.ValidateCodeVo;
 
 /**
  * @author Dev Surfer

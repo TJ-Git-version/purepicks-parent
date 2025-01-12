@@ -27,6 +27,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ResultUtil<?> exceptionHandler(Exception exception) {
+        exception.printStackTrace();
         return ResultUtil.error(ResultCodeEnum.SYSTEM_ERROR);
     }
 

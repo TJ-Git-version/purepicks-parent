@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devsurfer.purepicks.manager.mapper.SysRoleMapper">
+    <resultMap id="roleEntityMap" type="com.devsurfer.purepicks.model.entity.system.SysRole">
+        <id property="id" column="id"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleCode" column="role_code"/>
+        <result property="desc" column="desc"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+    </resultMap>
+
+    <resultMap id="roleVoMap" type="com.devsurfer.purepicks.model.vo.system.role.SysRoleVo">
+        <id property="id" column="id"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleCode" column="role_code"/>
+        <result property="desc" column="desc"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="role_column">
+        `id`,`role_name`,`role_code`,`desc`,`create_time`,`update_time`,`is_deleted`
+    </sql>
+
+    <select id="findRoleList" resultMap="roleVoMap">
+        select
+        <include refid="role_column"/>
+        from
+        `sys_role`
+        <where>
+            `is_deleted` = 1
+            <if test="keyword != null and keyword != ''">
+                and (
+                `role_name` like concat("%", #{keyword}, "%") or
+                `role_code` like concat("%", #{keyword}, "%") or
+                `desc` like concat("%", #{keyword}, "%") or
+                )
+            </if>
+        </where>
+    </select>
+
+    <select id="selectByRoleName" resultMap="roleEntityMap">
+        select
+        <include refid="role_column"/>
+        from `sys_role`
+        <where>
+            `role_name` = #{roleName} and
+            `is_deleted` = 1
+        </where>
+    </select>
+
+    <select id="selectByRoleCode" resultMap="roleEntityMap">
+        select
+        <include refid="role_column"/>
+        from `sys_role`
+        <where>
+            `role_code` = #{roleCode}
+            `is_deleted` = 1
+        </where>
+    </select>
+
+    <insert id="insertRole">
+        insert into `sys_role` (role_name, role_code, `desc`)
+        VALUES (#{roleName}, #{roleCode}, #{desc})
+    </insert>
+
+    <select id="checkByIdAndRoleName" resultType="boolean">
+        select count(`id`)
+        from `sys_role`
+        <where>
+            `id` != #{id} and `role_name` = #{roleName}
+            `is_deleted` = 1
+        </where>
+    </select>
+
+    <select id="checkByIdAndRoleCode" resultType="boolean">
+        select count(`id`)
+        from `sys_role`
+        <where>
+            `id` != #{id} and `role_code` = #{roleCode}
+            `is_deleted` = 1
+        </where>
+    </select>
+
+    <update id="editRole">
+        update `sys_role`
+        <set>
+            <if test="roleName != null and roleName != ''">
+                `role_name` = #{roleName},
+            </if>
+            <if test="roleCode != null and roleCode != ''">
+                `role_code` = #{roleCode},
+            </if>
+            <if test="desc != null">
+                `desc` = #{desc},
+            </if>
+            `update_time` = CURRENT_TIMESTAMP
+        </set>
+        where `id` = #{id} and `is_deleted` = 1
+    </update>
+
+    <update id="deleteRoleInId">
+        update `sys_role`
+        set `is_deleted` = 0
+        where id in
+        <foreach collection="roleIds" item="roleId" open="(" close=")" separator=",">
+            #{roleId}
+        </foreach>
+    </update>
+</mapper>
