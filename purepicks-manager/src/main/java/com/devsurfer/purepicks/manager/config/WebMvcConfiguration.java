@@ -2,8 +2,8 @@ package com.devsurfer.purepicks.manager.config;
 
 import com.devsurfer.purepicks.manager.interceptor.LoginInterceptor;
 import com.devsurfer.purepicks.manager.properties.UserAuthProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * description WebMvcConfigurer配置类
  */
 @Configuration
-@Import(UserAuthProperties.class)
+@EnableConfigurationProperties(UserAuthProperties.class)
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
     private final LoginInterceptor loginInterceptor;
