@@ -1,6 +1,5 @@
 package com.devsurfer.purepicks.manager.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.devsurfer.purepicks.manager.mapper.SysUserMapper;
@@ -10,7 +9,6 @@ import com.devsurfer.purepicks.model.dto.system.LoginTokenDto;
 import com.devsurfer.purepicks.model.entity.system.SysUser;
 import com.devsurfer.purepicks.model.enums.RedisKeyConstant;
 import com.devsurfer.purepicks.model.result.ResultCodeEnum;
-import com.devsurfer.purepicks.model.vo.system.LoginUserInfoVo;
 import com.devsurfer.purepicks.model.vo.system.LoginVo;
 import com.devsurfer.purepicks.service.handle.PurePicksException;
 import lombok.AllArgsConstructor;
@@ -83,19 +81,6 @@ public class PortalServiceImpl implements PortalService {
 
         // 响应给客户端
         return new LoginVo(token, refreshToken);
-    }
-
-    @Override
-    public LoginUserInfoVo loginUserInfo(LoginTokenDto loginTokenDto) {
-        Object sysUser = redisTemplate.opsForValue().get(RedisKeyConstant.build(RedisKeyConstant.LOGIN_TOKEN, loginTokenDto.getToken()));
-        Object refreshToken = redisTemplate.opsForValue().get(RedisKeyConstant.build(RedisKeyConstant.LOGIN_REFRESH_TOKEN, loginTokenDto.getRefreshToken()));
-        if (sysUser == null) {
-            return new LoginUserInfoVo();
-        }
-        if (!Objects.equals(refreshToken, loginTokenDto.getToken())) {
-            PurePicksException.error(ResultCodeEnum.PARAMETER_INVALID_ERROR);
-        }
-        return BeanUtil.copyProperties(JSONUtil.toBean(JSONUtil.toJsonStr(sysUser), SysUser.class), LoginUserInfoVo.class);
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.devsurfer.purepicks.manager.service;
 
 import com.devsurfer.purepicks.model.dto.system.LoginDto;
 import com.devsurfer.purepicks.model.dto.system.LoginTokenDto;
-import com.devsurfer.purepicks.model.vo.system.LoginUserInfoVo;
 import com.devsurfer.purepicks.model.vo.system.LoginVo;
 
 /**
@@ -17,11 +16,6 @@ public interface PortalService {
      * 登录:使用账号密码登录
      */
     LoginVo loginAccountPassword(LoginDto loginDto);
-
-    /**
-     * 获取登录用户信息
-     */
-    LoginUserInfoVo loginUserInfo(LoginTokenDto loginTokenDto);
 
     /**
      * 退出登录

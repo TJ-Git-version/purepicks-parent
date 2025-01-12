@@ -55,6 +55,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         // 获取token
         String token = request.getHeader("api-token");
         String refreshToken = request.getHeader("api-refresh-token");
+        // 校验token是否存在
         if (StrUtil.isBlank(token)) {
             responseNotLogin(response);
             return false;
@@ -62,7 +63,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         // 校验token是否失效
         String userInfo = (String) redisTemplate.opsForValue().get(RedisKeyConstant.build(LOGIN_TOKEN, token));
-        String refreshTokenValue = (String) redisTemplate.opsForValue().get(RedisKeyConstant.build(LOGIN_REFRESH_TOKEN, refreshToken));
         // 校验用户信息是否为空
         if (StrUtil.isBlank(userInfo)) {
             responseNotLogin(response);
@@ -71,10 +71,12 @@ public class LoginInterceptor implements HandlerInterceptor {
         // 如果不为空，存到localThread中
         AuthContextUtil.set(JSONUtil.toBean(userInfo, LoginUserInfoVo.class));
 
+        // 获取刷新token令牌
+        String refreshTokenValue = (String) redisTemplate.opsForValue().get(RedisKeyConstant.build(LOGIN_REFRESH_TOKEN, refreshToken));
         // 校验刷新token是否合法,合法真刷新当前用户token失效,更新为30分钟
-        if (StrUtil.isNotBlank(refreshTokenValue) && Objects.equals(refreshToken, token)) {
+        if (StrUtil.isNotBlank(refreshTokenValue) && Objects.equals(refreshTokenValue, token)) {
             redisTemplate.expire(RedisKeyConstant.build(LOGIN_TOKEN, token), 30, TimeUnit.MINUTES);
-            redisTemplate.expire(RedisKeyConstant.build(LOGIN_REFRESH_TOKEN, refreshTokenValue), 35, TimeUnit.MINUTES);
+            redisTemplate.expire(RedisKeyConstant.build(LOGIN_REFRESH_TOKEN, refreshToken), 35, TimeUnit.MINUTES);
         }
         // 放行
         return true;

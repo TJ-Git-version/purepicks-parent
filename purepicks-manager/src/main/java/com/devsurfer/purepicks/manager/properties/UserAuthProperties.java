@@ -12,7 +12,7 @@ import java.util.List;
  * description TODO
  */
 @Data
-@ConfigurationProperties(prefix = "purepicks.auth")
+@ConfigurationProperties(prefix = "purepicks.auth") // 前缀不能使用驼峰命名
 public class UserAuthProperties {
 
     private List<String> noAuthUrls;

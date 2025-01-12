@@ -9,6 +9,7 @@ import com.devsurfer.purepicks.model.result.ResultUtil;
 import com.devsurfer.purepicks.model.vo.system.LoginUserInfoVo;
 import com.devsurfer.purepicks.model.vo.system.LoginVo;
 import com.devsurfer.purepicks.model.vo.system.ValidateCodeVo;
+import com.devsurfer.purepicks.utils.AuthContextUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -38,8 +39,8 @@ public class PortalController {
 
     @Operation(description = "获取登录用户信息")
     @PostMapping("/login-user-info")
-    public ResultUtil<LoginUserInfoVo> loginUserInfo(@RequestBody LoginTokenDto loginTokenDto) {
-        return ResultUtil.ok(portalService.loginUserInfo(loginTokenDto), ResultCodeEnum.SUCCESS);
+    public ResultUtil<LoginUserInfoVo> loginUserInfo() {
+        return ResultUtil.ok(AuthContextUtil.get(), ResultCodeEnum.SUCCESS);
     }
 
     @Operation(description = "获取登录验证码")
