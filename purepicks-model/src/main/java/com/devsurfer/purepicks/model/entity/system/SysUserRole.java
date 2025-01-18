@@ -11,13 +11,13 @@ import lombok.Data;
 @Data
 public class SysUserRole {
 
-    // 主键id
+    // 用户角色关联表ID
     private Long id;
 
-    // 用户id
-    private Long userId;
-
-    // 角色id
+    // 角色ID
     private Long roleId;
+
+    // 用户ID
+    private Long userId;
 
 }

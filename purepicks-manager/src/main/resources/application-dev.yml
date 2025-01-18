@@ -36,6 +36,10 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
 
 mybatis:
   configuration:
@@ -44,3 +48,11 @@ mybatis:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:/mapper/*.xml
   type-aliases-package: com.devsurfer.purepicks.manager.domain
+
+purepicks:
+  minio:
+    endpoint: 127.0.0.1
+    port: 9000
+    accessKey: YldujUvxicrZOHSOg1Vs
+    secretKey: d5oqQCL2SPCpwGacuRSmkdxzN4rBR6MApdNhRd5x
+    bucket: purepicks-manager-bucket

@@ -75,8 +75,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         String refreshTokenValue = (String) redisTemplate.opsForValue().get(RedisKeyConstant.build(LOGIN_REFRESH_TOKEN, refreshToken));
         // 校验刷新token是否合法,合法真刷新当前用户token失效,更新为30分钟
         if (StrUtil.isNotBlank(refreshTokenValue) && Objects.equals(refreshTokenValue, token)) {
-            redisTemplate.expire(RedisKeyConstant.build(LOGIN_TOKEN, token), 30, TimeUnit.MINUTES);
-            redisTemplate.expire(RedisKeyConstant.build(LOGIN_REFRESH_TOKEN, refreshToken), 35, TimeUnit.MINUTES);
+            redisTemplate.expire(RedisKeyConstant.build(LOGIN_TOKEN, token), 30, TimeUnit.DAYS);
+            redisTemplate.expire(RedisKeyConstant.build(LOGIN_REFRESH_TOKEN, refreshToken), 35, TimeUnit.DAYS);
         }
         // 放行
         return true;

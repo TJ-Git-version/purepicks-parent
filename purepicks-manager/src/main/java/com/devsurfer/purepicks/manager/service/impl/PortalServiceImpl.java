@@ -76,8 +76,8 @@ public class PortalServiceImpl implements PortalService {
         String refreshToken = UUID.randomUUID().toString().replace("-", "");
 
         // 将登录令牌保存到redis中
-        redisTemplate.opsForValue().set(RedisKeyConstant.build(RedisKeyConstant.LOGIN_TOKEN, token), JSONUtil.toJsonStr(sysUser), 30, TimeUnit.MINUTES);
-        redisTemplate.opsForValue().set(RedisKeyConstant.build(RedisKeyConstant.LOGIN_REFRESH_TOKEN, refreshToken), token, 35, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(RedisKeyConstant.build(RedisKeyConstant.LOGIN_TOKEN, token), JSONUtil.toJsonStr(sysUser), 30, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set(RedisKeyConstant.build(RedisKeyConstant.LOGIN_REFRESH_TOKEN, refreshToken), token, 35, TimeUnit.DAYS);
 
         // 响应给客户端
         return new LoginVo(token, refreshToken);
