@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devsurfer.purepicks.manager.mapper.SysUserRoleMapper">
+
+    <sql id="user-role-column">
+        `id`, `role_id`, `user_id`
+    </sql>
+
+    <delete id="deleteUserRoleByUserId">
+        delete from `sys_user_role` where `user_id` = #{userId}
+    </delete>
+
+    <insert id="insertBatch">
+        insert into `sys_user_role` (`role_id`, `user_id`)
+        values
+        <foreach collection="roleIdList" item="roleId" separator=",">
+            (#{roleId}, #{userId})
+        </foreach>
+    </insert>
+
+    <select id="checkRoleIsUsed" resultType="boolean">
+        select count(`id`)
+        from `sys_user_role`
+        where `role_id` in
+        <foreach collection="roleIds" item="roleId" separator="," open="(" close=")">
+            #{roleId}
+        </foreach>
+    </select>
+
+    <select id="findUserRoleByUserId" resultType="com.devsurfer.purepicks.model.entity.system.SysUserRole">
+        select
+        <include refid="user-role-column"/>
+        from `sys_user_role`
+        where `user_id` = #{userId}
+    </select>
+</mapper>

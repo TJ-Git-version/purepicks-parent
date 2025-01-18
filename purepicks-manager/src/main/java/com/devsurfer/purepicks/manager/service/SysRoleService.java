@@ -1,11 +1,10 @@
 package com.devsurfer.purepicks.manager.service;
 
-import com.devsurfer.purepicks.model.dto.system.role.SysRoleDeleteDto;
-import com.devsurfer.purepicks.model.dto.system.role.SysRoleInsertDto;
-import com.devsurfer.purepicks.model.dto.system.role.SysRoleQueryDto;
-import com.devsurfer.purepicks.model.dto.system.role.SysRoleUpdateDto;
+import com.devsurfer.purepicks.model.dto.system.role.*;
 import com.devsurfer.purepicks.model.vo.system.role.SysRoleVo;
 import com.github.pagehelper.PageInfo;
+
+import java.util.Map;
 
 /**
  * @author Dev Surfer
@@ -34,4 +33,11 @@ public interface SysRoleService {
      * 删除角色
      */
     void removeRole(SysRoleDeleteDto sysRoleDeleteDto);
+
+    /**
+     * 分配角色
+     */
+    void assignRole(AssignRoleDto assignRoleDto);
+
+    Map<String, Object> findRoleList(Long userId);
 }

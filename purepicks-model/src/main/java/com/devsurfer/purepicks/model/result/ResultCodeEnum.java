@@ -28,7 +28,8 @@ public enum ResultCodeEnum {
 
     /* 角色模块 301~*/
     ROLE_NAME_EXISTS_ERROR(301, "角色名称已存在,请查询输入"),
-    ROLE_CODE_EXISTS_ERROR(301, "角色编号已存在,请查询输入"),
+    ROLE_CODE_EXISTS_ERROR(302, "角色编号已存在,请查询输入"),
+    ROLE_IS_USED_DELETE_ERROR(303, "当前角色已绑定用户,无法删除"),
 
     ;
 
