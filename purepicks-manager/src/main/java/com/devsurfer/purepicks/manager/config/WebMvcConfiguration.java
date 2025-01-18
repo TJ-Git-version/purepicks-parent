@@ -1,7 +1,7 @@
 package com.devsurfer.purepicks.manager.config;
 
 import com.devsurfer.purepicks.manager.interceptor.LoginInterceptor;
-import com.devsurfer.purepicks.manager.properties.UserAuthProperties;
+import com.devsurfer.purepicks.model.properties.UserAuthProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

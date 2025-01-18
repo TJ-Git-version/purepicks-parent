@@ -1,4 +1,4 @@
-package com.devsurfer.purepicks.manager.properties;
+package com.devsurfer.purepicks.model.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

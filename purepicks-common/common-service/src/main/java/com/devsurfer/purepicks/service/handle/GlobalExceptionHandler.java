@@ -4,6 +4,7 @@ import com.devsurfer.purepicks.model.result.ResultCodeEnum;
 import com.devsurfer.purepicks.model.result.ResultUtil;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 /**
  * @author Dev Surfer
@@ -20,6 +21,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PurePicksException.class)
     public ResultUtil<?> PurePicksExceptionHandler(PurePicksException exception) {
         return ResultUtil.error(exception.getCode(), exception.getMessage());
+    }
+
+    /**
+     * 上传文件超出指定范围异常捕获
+     */
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResultUtil<?> maxUploadSizeExceededException(MaxUploadSizeExceededException exception) {
+        return ResultUtil.error(ResultCodeEnum.FILE_SIZE_TOO_LARGE_ERROR);
     }
 
     /**
