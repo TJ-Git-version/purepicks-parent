@@ -1,12 +1,12 @@
 server:
   port: 8000
-  ssl:
-    client-auth:
+
 spring:
   application:
     name: purepicks-manager
   profiles:
     active: dev
+
 
 # springdoc-openapi项目配置
 springdoc:

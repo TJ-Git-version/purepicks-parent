@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devsurfer.purepicks.manager.mapper.SysRoleMenuMapper">
+
+    <sql id="role_menu_column">
+        `id`, `role_id`, `menu_id`
+    </sql>
+
+    <delete id="deleteByRoleId">
+        delete
+        from `sys_role_menu`
+        where `role_id` = #{roleId}
+    </delete>
+
+    <insert id="insertBatch">
+        insert into `sys_role_menu` (`role_id`, `menu_id`)
+        values
+        <foreach collection="menuIdList" item="menuId" separator=",">
+            (#{roleId}, #{menuId})
+        </foreach>
+    </insert>
+
+    <select id="findRoleMenuByRoleId" resultType="com.devsurfer.purepicks.model.entity.system.SysRoleMenu">
+        select
+        <include refid="role_menu_column"/>
+        from `sys_role_menu` where `role_id` = #{roleId}
+    </select>
+</mapper>

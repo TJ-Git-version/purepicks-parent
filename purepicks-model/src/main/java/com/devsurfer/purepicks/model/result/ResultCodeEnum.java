@@ -33,13 +33,18 @@ public enum ResultCodeEnum {
     ROLE_CODE_EXISTS_ERROR(302, "角色编号已存在,请查询输入"),
     ROLE_IS_USED_DELETE_ERROR(303, "当前角色已绑定用户,无法删除"),
 
-    /* 文件管理 321~*/
+    /* 文件管理 321~340*/
     FILE_IS_EMPTY_ERROR(321, "文件不能为空,请重新上传"),
     FILE_UPLOAD_ERROR(322, "文件上传失败"),
     FILE_TYPE_NOT_ENTITY_ERROR(323, "文件扩展名不存在"),
     FILE_NOT_ENTITY_ERROR(324, "该文件不存在"),
     FILE_NOT_USER_ERROR(325, "该文件已被禁用"),
     FILE_DOWNLOAD_ERROR(326, "文件下载失败,请联系管理员!"),
+
+    /* 菜单管理 321~340*/
+    MENU_NAME_EXISTS_ERROR(341, "菜单标题已存在,请查询输入"),
+    MENU_CODE_EXISTS_ERROR(341, "菜单编号已存在,请查询输入"),
+    MENU_DELETE_ERROR(341, "存在子菜单，删除失败"),
     ;
 
     private final Integer code;
