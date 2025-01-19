@@ -45,6 +45,10 @@ public enum ResultCodeEnum {
     MENU_NAME_EXISTS_ERROR(341, "菜单标题已存在,请查询输入"),
     MENU_CODE_EXISTS_ERROR(341, "菜单编号已存在,请查询输入"),
     MENU_DELETE_ERROR(341, "存在子菜单，删除失败"),
+
+    /* 分类管理 351~360*/
+    CATEGORY_NAME_EXISTS_ERROR(351, "分类名称已存在,请重新输入"),
+    CATEGORY_DELETE_ERROR(351, "存在子菜单,删除失败"),
     ;
 
     private final Integer code;
