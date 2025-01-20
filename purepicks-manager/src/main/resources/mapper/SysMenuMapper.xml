@@ -34,7 +34,7 @@
 
     <insert id="insertMenu">
         insert into `sys_menu` (`parent_id`, `title`, `menu_code`, `sort`, `status`)
-        values(#{parentId}, #{title}, #{menuCode}, #{sort}, #{status})
+        values (#{parentId}, #{title}, #{menuCode}, #{sort}, #{status})
     </insert>
 
     <update id="updateMenu">
@@ -56,30 +56,31 @@
                 `status` = #{status},
             </if>
         </set>
-        where `id` = #{id}
+        where `id` = #{id} and `is_deleted` = 1
     </update>
 
     <delete id="removeMenu">
         update `sys_menu`
         set `is_deleted` = 0
-        where `id` = #{menuId}
+        where `id` = #{menuId} and `is_deleted` = 1
     </delete>
 
     <update id="updateHasChildrenByParentId">
         update `sys_menu`
         set `has_children` = 1
-        where id = #{parentId} and `has_children` = 0
+        where id = #{parentId} and `has_children` = 0 and `is_deleted` = 1
     </update>
 
     <select id="findMenuList" resultType="com.devsurfer.purepicks.model.entity.system.SysMenu">
         select <include refid="menu_column"/>
         from `sys_menu`
+        where `is_deleted` = 1
         order by `sort`
     </select>
 
     <select id="countByParentId" resultType="Long">
         select count(`id`)
         from `sys_menu`
-        where `parent_id` = #{menuId}
+        where `parent_id` = #{menuId} and `is_deleted` = 1
     </select>
 </mapper>
