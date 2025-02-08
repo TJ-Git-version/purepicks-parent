@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devsurfer.purepicks.manager.mapper.ProductSpecMapper">
+    <sql id="product_spec_column">
+        `id`, `spec_name`, `spec_value`, `create_time`, `update_time`, `is_deleted`
+    </sql>
+
+    <select id="findProductSpecList" resultType="com.devsurfer.purepicks.model.vo.system.product.ProductSpecVo">
+        select
+        <include refid="product_spec_column"/>
+        from `product_spec`
+        <where>
+            `is_deleted` = 1
+            <if test="keyword != null and keyword != ''">
+                and (
+                `spec_name` like concat("%", #{keyword}, "%") or
+                `spec_value` like concat("%", #{keyword}, "%")
+                )
+            </if>
+        </where>
+        order by `create_time` desc
+    </select>
+
+    <select id="selectBySpecName" resultType="com.devsurfer.purepicks.model.entity.product.ProductSpec">
+        select
+        <include refid="product_spec_column"/>
+        from `product_spec`
+        <where>
+            `is_deleted` = 1 and
+            `spec_name` = #{specName}
+        </where>
+    </select>
+
+    <select id="selectBySpecNameNotId" resultType="com.devsurfer.purepicks.model.entity.product.ProductSpec">
+        select
+        <include refid="product_spec_column"/>
+        from `product_spec`
+        <where>
+            `is_deleted` = 1 and
+            `spec_name` = #{specName} and
+            `id` != #{id}
+        </where>
+    </select>
+
+    <insert id="insertProductSpec">
+        insert into `product_spec`(`spec_name`, `spec_value`)
+        values (#{specName}, #{specValue})
+    </insert>
+
+    <update id="updateProductSpec">
+        update `product_spec`
+        set `spec_name`  = #{specName},
+            `spec_value` = #{specValue}
+        where `id` = #{id}
+          and `is_deleted` = 1
+    </update>
+
+    <update id="deleteProductSpecById">
+        update `product_spec`
+        set `is_deleted` = 0
+        where `id` = #{productSpecId}
+    </update>
+</mapper>
