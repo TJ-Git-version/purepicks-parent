@@ -45,7 +45,10 @@ public enum ResultCodeEnum {
     MENU_NAME_EXISTS_ERROR(341, "菜单标题已存在,请查询输入"),
     MENU_CODE_EXISTS_ERROR(341, "菜单编号已存在,请查询输入"),
     MENU_DELETE_ERROR(341, "存在子菜单，删除失败"),
-    ;
+
+    /* 品牌管理 361~370*/
+    BRAND_NAME_EXISTS_ERROR(361, "品牌名称已存在,请查询输入"),
+    BRAND_BOUND_CATEGORY_ERROR(362, "{}的品牌已关联分类，请先移除品牌和分类关系");
 
     private final Integer code;
 

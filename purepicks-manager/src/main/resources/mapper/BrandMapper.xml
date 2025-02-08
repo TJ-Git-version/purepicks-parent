@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devsurfer.purepicks.manager.mapper.BrandMapper">
+    <sql id="brand_column">
+        `id`, `name`, `logo`, `sort`, `create_time`, `update_time`, `is_deleted`
+    </sql>
+
+    <select id="findBrandList" resultType="com.devsurfer.purepicks.model.vo.system.brand.BrandVo">
+        select
+        <include refid="brand_column"/>
+        from `brand`
+        <where>
+            `is_deleted` = 1
+            <if test="keyword != null and keyword != ''">
+                and (
+                `name` like concat("%", #{keyword}, "%")
+                )
+            </if>
+        </where>
+        order by `sort` asc, `create_time` desc
+    </select>
+
+    <select id="selectCountByName" resultType="java.lang.Long">
+        select count(1)
+        from `brand`
+        where `name` = #{name} and `is_deleted` = 1
+    </select>
+
+    <select id="selectCountByNameNotId" resultType="java.lang.Long">
+        select count(1)
+        from `brand`
+        where `name` = #{brandName}
+          and `id` != #{brandId}  and `is_deleted` = 1
+    </select>
+
+    <insert id="insertBrand">
+        insert into `brand` (`name`, `logo`, `sort`)
+        values (#{name}, #{logo}, #{sort})
+    </insert>
+
+    <update id="updateBrand">
+        update `brand`
+        <set>
+            <if test="name != null and name != ''">
+                `name` = #{name},
+            </if>
+            <if test="logo != null and logo != ''">
+                `logo` = #{logo},
+            </if>
+            <if test="sort != null">
+                `sort` = #{sort},
+            </if>
+        </set>
+        where `id` = #{id}
+    </update>
+
+    <update id="deleteBrandBatch">
+        update `brand`
+        set `is_deleted` = 0
+        where `id` in
+        <foreach collection="idList" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findCategoryBrandInBrandId" resultType="com.devsurfer.purepicks.model.entity.brand.Brand">
+        select
+        <include refid="brand_column"/>
+        from `brand`
+        where `is_deleted` = 1 and `id` in
+        <foreach collection="brandIdList" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+</mapper>
