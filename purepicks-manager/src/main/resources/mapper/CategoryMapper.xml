@@ -9,8 +9,29 @@
         select
         <include refid="category_column"/>
         from `category`
-        where `is_deleted` = 1
-        order by `sort`
+        <where>
+            `is_deleted` = 1
+            <if test="keyword != null and keyword != ''">
+                and `name` like concat('%', #{keyword}, '%')
+            </if>
+            <if test="status != null">
+                and `status` = #{status}
+            </if>
+            <if test="createStartTime != null and createStartTime != '' and createEndTime != null and createEndTime != ''">
+                and `createTime` between `createStartTime` and `createEndTime`
+            </if>
+        </where>
+        <choose>
+            <when test="sorts != null and sorts.size() > 0">
+                order by
+                <foreach collection="sorts" item="sort" separator=",">
+                    #{sort.column} #{sort.order}
+                </foreach>
+            </when>
+            <otherwise>
+                order by `create_time`
+            </otherwise>
+        </choose>
     </select>
 
     <select id="selectByNameAndParentId" resultType="com.devsurfer.purepicks.model.entity.category.Category">
@@ -20,7 +41,7 @@
         where `is_deleted` = 1 and `name` = #{name} and `parent_id` = #{parentId}
     </select>
 
-    <insert id="insertCategory">
+    <insert id="insertCategory" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
         insert into `category` (`parent_id`, `name`, `image_icon`, `sort`, `status`)
         values (#{parentId}, #{name}, #{imageIcon}, #{sort}, #{status})
     </insert>

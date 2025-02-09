@@ -18,6 +18,8 @@ public enum ResultCodeEnum {
     SYSTEM_ERROR(201, "系统异常"),
     PARAMETER_INVALID_ERROR(202, "参数非法"),
     FILE_SIZE_TOO_LARGE_ERROR(203, "你上传的文件太大啦,我承受不住,请重新上传哦"),
+    EXCEL_FILE_EXPORT_ERROR(204, "导出Excel失败"),
+    EXCEL_FILE_IMPORT_ERROR(204, "导入Excel失败"),
 
     /* 用户模块 260-300*/
     USER_USERNAME_NOT_EXITS_ERROR(260, "用户名不存在"),

@@ -1,5 +1,6 @@
 package com.devsurfer.purepicks.manager.mapper;
 
+import com.devsurfer.purepicks.model.dto.system.category.CategoryQueryDto;
 import com.devsurfer.purepicks.model.entity.category.Category;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * description TODO
  */
 public interface CategoryMapper {
-    List<Category> findCategoryList();
+    List<Category> findCategoryList(CategoryQueryDto categoryQueryDto);
 
     Category selectByNameAndParentId(@Param("name") String name, @Param("parentId") Long parentId);
 
