@@ -18,6 +18,8 @@ public enum ResultCodeEnum {
     SYSTEM_ERROR(201, "系统异常"),
     PARAMETER_INVALID_ERROR(202, "参数非法"),
     FILE_SIZE_TOO_LARGE_ERROR(203, "你上传的文件太大啦,我承受不住,请重新上传哦"),
+    EXCEL_FILE_EXPORT_ERROR(204, "导出Excel失败"),
+    EXCEL_FILE_IMPORT_ERROR(204, "导入Excel失败"),
 
     /* 用户模块 260-300*/
     USER_USERNAME_NOT_EXITS_ERROR(260, "用户名不存在"),
@@ -43,8 +45,12 @@ public enum ResultCodeEnum {
 
     /* 菜单管理 321~340*/
     MENU_NAME_EXISTS_ERROR(341, "菜单标题已存在,请重新输入"),
-    MENU_CODE_EXISTS_ERROR(341, "菜单编号已存在,请重新输入"),
-    MENU_DELETE_ERROR(341, "存在子菜单，删除失败"),
+    MENU_CODE_EXISTS_ERROR(342, "菜单编号已存在,请重新输入"),
+    MENU_DELETE_ERROR(343, "存在子菜单，删除失败"),
+
+    /* 分类管理 351~360*/
+    CATEGORY_NAME_EXISTS_ERROR(351, "分类名称已存在,请重新输入"),
+    CATEGORY_DELETE_ERROR(352, "存在子菜单,删除失败"),
 
     /* 品牌管理 361~370*/
     BRAND_NAME_EXISTS_ERROR(361, "品牌名称已存在,请重新输入"),
