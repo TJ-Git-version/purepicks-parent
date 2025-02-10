@@ -19,7 +19,7 @@ create table `product`
     `review_user_id`    bigint      not null comment '审核人id',
     `review_time`       timestamp            default CURRENT_TIMESTAMP comment '审核时间',
     `review_status`     tinyint     not null default 0 comment '审核状态：0-未审核，1-通过，2-驳回',
-    `review_info`       text                 default '' comment '审核信息',
+    `review_info`       text                 comment '审核信息',
     `create_time`       timestamp            default CURRENT_TIMESTAMP comment '创建时间',
     `update_time`       timestamp            default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP comment '更新时间',
     `is_deleted`        tinyint(1)           default 1 comment '逻辑删除: 1 未删除, 0 已删除',
