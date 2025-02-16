@@ -13,6 +13,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "商品规格管理", description = "商品规格管理")
 @RestController
 @RequestMapping("/admin/product-spec")
@@ -26,6 +28,13 @@ public class ProductSpecController {
     public ResultUtil<PageInfo<ProductSpecVo>> pageList(ProductSpecQueryDto productSpecQueryDto) {
         return ResultUtil.ok(productSpecService.pageList(productSpecQueryDto));
     }
+
+    @Operation(summary = "获取所有商品规格信息", description = "获取所有商品规格信息")
+    @GetMapping("list-all")
+    public ResultUtil<List<ProductSpecVo>> listAllProductSpec() {
+        return ResultUtil.ok(productSpecService.listAllProductSpec());
+    }
+
 
     @Operation(summary = "商品规格新增", description = "商品规格新增")
     @PostMapping

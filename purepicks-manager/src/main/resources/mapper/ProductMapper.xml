@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devsurfer.purepicks.manager.mapper.ProductMapper">
+    <resultMap id="productVo" type="com.devsurfer.purepicks.model.vo.system.product.ProductVo">
+        <id column="id" property="id"/>
+        <result column="product_name" property="productName"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="brand_name" property="brandName"/>
+        <result column="carousel_url" property="carouselUrl"/>
+        <result column="category_id1" property="categoryId1"/>
+        <result column="category_id2" property="categoryId2"/>
+        <result column="category_id3" property="categoryId3"/>
+        <result column="unit_name" property="unitName"/>
+        <result column="product_spec_id" property="productSpecId"/>
+        <result column="product_spec_info" property="productSpecInfo"/>
+        <result column="create_user_id" property="createUserId"/>
+        <result column="create_user_name" property="createUserName"/>
+        <result column="review_user_id" property="reviewUserId"/>
+        <result column="review_user_name" property="reviewUserName"/>
+        <result column="review_info" property="reviewInfo"/>
+        <result column="review_status" property="reviewStatus"/>
+        <association property="productDetail"
+                     javaType="com.devsurfer.purepicks.model.vo.system.product.ProductDetailVo">
+            <result column="productDetailId" property="id"/>
+            <result column="productDetailProductId" property="productId"/>
+            <result column="productDetailImageUrl" property="imageUrl"/>
+        </association>
+        <collection property="productSkuList" ofType="com.devsurfer.purepicks.model.vo.system.product.ProductSkuVo">
+            <result column="productSkuId" property="id"/>
+            <result column="productSkuProductId" property="productId"/>
+            <result column="productSkuCode" property="code"/>
+            <result column="productSkuName" property="name"/>
+            <result column="productSkuThumbImage" property="thumbImage"/>
+            <result column="productSkuSalePrice" property="salePrice"/>
+            <result column="productSkuMarketPrice" property="marketPrice"/>
+            <result column="productSkuCostPrice" property="costPrice"/>
+            <result column="productSkuSpecName" property="specName"/>
+            <result column="productSkuStockNum" property="stockNum"/>
+            <result column="productSkuVolume" property="volume"/>
+            <result column="productSkuWeight" property="weight"/>
+            <result column="productSkuStatus" property="status"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="productListVo" type="com.devsurfer.purepicks.model.vo.system.product.ProductVo">
+        <id column="id" property="id"/>
+        <result column="product_name" property="productName"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="brand_name" property="brandName"/>
+        <result column="carousel_url" property="carouselUrl"/>
+        <result column="category_id1" property="categoryId1"/>
+        <result column="category_id2" property="categoryId2"/>
+        <result column="category_id3" property="categoryId3"/>
+        <result column="category_name1" property="categoryName1"/>
+        <result column="category_name2" property="categoryName2"/>
+        <result column="category_name3" property="categoryName3"/>
+        <result column="unit_name" property="unitName"/>
+        <result column="product_spec_id" property="productSpecId"/>
+        <result column="product_spec_info" property="productSpecInfo"/>
+        <result column="create_user_id" property="createUserId"/>
+        <result column="create_user_name" property="createUserName"/>
+        <result column="review_user_id" property="reviewUserId"/>
+        <result column="review_user_name" property="reviewUserName"/>
+        <result column="review_info" property="reviewInfo"/>
+        <result column="review_status" property="reviewStatus"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into `product`(`product_name`, `brand_id`, `carousel_url`, `category_id1`, `category_id2`,
+                              `category_id3`,
+                              `unit_name`, `product_spec_id`, `product_spec_info`, `create_user_id`,
+                              `review_user_id`)
+        values (#{productName}, #{brandId}, #{carouselUrl}, #{categoryId1}, #{categoryId2}, #{categoryId3},
+                #{unitName}, #{status}, #{productSpecId}, #{productSpecInfo}, #{createUserId}, #{reviewUserId})
+    </insert>
+
+    <insert id="insertProductSkuBatch">
+        insert into `product_sku`(`product_id`, `code`, `name`, `thumb_image`, `sale_price`, `market_price`,
+        `cost_price`, `spec_name`, `weight`, `volume`, `stock_num`)
+        values
+        <foreach collection="productSkuList" item="productSku" separator=",">
+            (#{productSku.productId}, #{productSku.code}, #{productSku.name}, #{productSku.thumbImage},
+            #{productSku.salePrice}, #{productSku.marketPrice}, #{productSku.costPrice}, #{productSku.specName},
+            #{productSku.weight}, #{productSku.volume}, #{productSku.stockNum})
+        </foreach>
+    </insert>
+
+    <insert id="insertProductDetail">
+        insert into `product_detail`(`product_id`, `image_url`)
+        values (#{productId}, #{imageUrl})
+    </insert>
+
+    <select id="findProductById" resultMap="productVo">
+        select p.`id`,
+               p.`product_name`,
+               p.`brand_id`,
+               p.`carousel_url`,
+               p.`category_id1`,
+               p.`category_id2`,
+               p.`category_id3`,
+               p.`unit_name`,
+               p.`product_spec_id`,
+               p.`product_spec_info`,
+               p.create_user_id,
+               p.review_user_id,
+               p.review_status,
+               p.review_info,
+               su1.username    as create_user_name,
+               su2.username    as review_user_name,
+               ps.id           as productSkuId,
+               ps.product_id   as productSkuProductId,
+               ps.code         as productSkuCode,
+               ps.name         as productSkuName,
+               ps.thumb_image  as productSkuThumbImage,
+               ps.sale_price   as productSkuSalePrice,
+               ps.market_price as productSkuMarketPrice,
+               ps.cost_price   as productSkuCostPrice,
+               ps.spec_name    as productSkuSpecName,
+               ps.stock_num    as productSkuStockNum,
+               ps.weight       as productSkuWeight,
+               ps.volume       as productSkuVolume,
+               ps.status       as productSkuStatus,
+               pd.id           as productDetailId,
+               pd.product_id   as productDetailProductId,
+               pd.image_url    as productDetailImageUrl
+        from `product` p
+                 left join `product_sku` ps
+                           on ps.product_id = p.id
+                 left join `product_detail` pd on pd.product_id = p.id
+                 left join `sys_user` su1 on su1.id = p.create_user_id
+                 left join `sys_user` su2 on su2.id = p.review_user_id
+        where p.is_deleted = 1
+          and ps.is_deleted = 1
+          and pd.is_deleted = 1
+    </select>
+
+    <update id="update">
+        update `product`
+        <set>
+            <if test="productName != null">
+                `product_name` = #{productName},
+            </if>
+            <if test="brandId != null">
+                `brand_id` = #{brandId},
+            </if>
+            <if test="carouselUrl != null">
+                `carousel_url` = #{carouselUrl},
+            </if>
+            <if test="categoryId1 != null">
+                `category_id1` = #{categoryId1},
+            </if>
+            <if test="categoryId2 != null">
+                `category_id2` = #{categoryId2},
+            </if>
+            <if test="categoryId3 != null">
+                `category_id3` = #{categoryId3},
+            </if>
+            <if test="unitName != null">
+                `unit_name` = #{unitName},
+            </if>
+            <if test="productSpecId != null">
+                `product_spec_id` = #{productSpecId},
+            </if>
+            <if test="productSpecInfo != null">
+                `product_spec_info` = #{productSpecInfo},
+            </if>
+            <if test="reviewUserId != null">
+                `review_user_id` = #{reviewUserId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="deleteProductSkuByProductId">
+        update `product_sku`
+        set is_deleted = 0
+        where product_id = #{productId}
+    </update>
+
+    <update id="updateProductDetail">
+        update `product_detail`
+        set image_url = #{imageUrl}
+        where product_id = #{productId}
+    </update>
+
+    <update id="deleteProductById">
+        update `product`
+        set is_deleted = 0
+        where id = #{productId}
+    </update>
+
+    <update id="deleteProductDetailByProductId">
+        update `product_detail`
+        set is_deleted = 0
+        where product_id = #{productId}
+    </update>
+
+    <select id="findProductList" resultMap="productListVo">
+        select p.`id`,
+        p.`product_name`,
+        p.`brand_id`,
+        p.`carousel_url`,
+        p.`category_id1`,
+        p.`category_id2`,
+        p.`category_id3`,
+        p.`unit_name`,
+        p.`product_spec_id`,
+        p.`product_spec_info`,
+        p.create_user_id,
+        p.review_user_id,
+        p.review_status,
+        p.review_info,
+        p.create_time,
+        p.update_time,
+        su1.username as create_user_name,
+        su2.username as review_user_name,
+        c1.name as category_name1,
+        c2.name as category_name2,
+        c3.name as category_name3,
+        b.name as brand_name
+        from `product` p
+        inner join category c1 on c1.id = p.category_id1
+        inner join category c2 on c2.id = p.category_id2
+        inner join category c3 on c3.id = p.category_id3
+        inner join brand b on b.id = p.brand_id
+        left join `sys_user` su1 on su1.id = p.create_user_id
+        left join `sys_user` su2 on su2.id = p.review_user_id
+        <where>
+            p.is_deleted = 1
+            <if test="keyword != null and keyword != ''">
+                and p.product_name like concat('%', #{keyword}, '%')
+            </if>
+            <if test="categoryId != null">
+                and
+                (
+                p.category_id1 = #{categoryId} or
+                p.category_id2 = #{categoryId} or
+                p.category_id3 = #{categoryId}
+                )
+            </if>
+        </where>
+        order by p.create_time desc
+    </select>
+
+    <update id="reviewProduct">
+        update `product`
+        set review_status = #{reviewStatus},
+            review_info   = #{reviewInfo}
+        where id = #{productId}
+          and is_deleted = 1
+    </update>
+
+    <update id="updateStatus">
+        update `product`
+        set `review_status` = #{status}
+        where id = #{productId} and is_deleted = 1
+    </update>
+
+</mapper>

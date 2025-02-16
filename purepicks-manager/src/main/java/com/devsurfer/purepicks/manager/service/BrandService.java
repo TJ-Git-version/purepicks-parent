@@ -1,11 +1,10 @@
 package com.devsurfer.purepicks.manager.service;
 
-import com.devsurfer.purepicks.model.dto.system.brand.BrandDeleteDto;
-import com.devsurfer.purepicks.model.dto.system.brand.BrandInsertDto;
-import com.devsurfer.purepicks.model.dto.system.brand.BrandQueryDto;
-import com.devsurfer.purepicks.model.dto.system.brand.BrandUpdateDto;
+import com.devsurfer.purepicks.model.dto.system.brand.*;
 import com.devsurfer.purepicks.model.vo.system.brand.BrandVo;
 import com.github.pagehelper.PageInfo;
+
+import java.util.List;
 
 public interface BrandService {
 
@@ -16,5 +15,9 @@ public interface BrandService {
     void updateBrand(BrandUpdateDto brandUpdateDto);
 
     void deleteBrand(BrandDeleteDto brandDeleteDto);
+
+    void insertCategoryBrand(CategoryBrandDto categoryBrandDto);
+
+    List<BrandVo> listBrandByCategoryId(Long categoryId);
 
 }

@@ -19,7 +19,7 @@ create table `product`
     `review_user_id`    bigint      not null comment '审核人id',
     `review_time`       timestamp            default CURRENT_TIMESTAMP comment '审核时间',
     `review_status`     tinyint     not null default 0 comment '审核状态：0-未审核，1-通过，2-驳回',
-    `review_info`       text                 comment '审核信息',
+    `review_info`       text comment '审核信息',
     `create_time`       timestamp            default CURRENT_TIMESTAMP comment '创建时间',
     `update_time`       timestamp            default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP comment '更新时间',
     `is_deleted`        tinyint(1)           default 1 comment '逻辑删除: 1 未删除, 0 已删除',
@@ -69,3 +69,28 @@ create table `product_detail`
 ) engine = innodb
   default charset = utf8mb4
   collate = utf8mb4_unicode_ci comment ='商品详情表';
+
+drop table if exists `product_sku`;
+create table `product_sku`
+(
+    `id`           bigint         not null auto_increment comment '主键ID',
+    `product_id`   bigint         not null comment '商品id',
+    `code`         varchar(32)    not null comment '商品SKU编码',
+    `name`         varchar(64)    not null comment '商品SKU名称',
+    `thumb_image`  text           not null comment '商品SKU图片',
+    `sale_price`   decimal(12, 2) not null comment '售价',
+    `market_price` decimal(12, 2) not null comment '市场价',
+    `cost_price`   decimal(12, 2) not null comment '成本价',
+    `spec_name`    varchar(128)   not null comment '规格名称',
+    `stock_num`    int            not null comment '库存量',
+    `weight`       double(10, 2)  not null comment '重量',
+    `volume`       double(10, 2)  not null comment '体积',
+    `status`       tinyint(1)     not null default 1 comment '状态: 0-下架, 1-上架',
+    `create_time`  timestamp               default CURRENT_TIMESTAMP comment '创建时间',
+    `update_time`  timestamp               default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP comment '更新时间',
+    `is_deleted`   tinyint(1)              default 1 comment '逻辑删除: 1 未删除, 0 已删除',
+    primary key (`id`),
+    index idx_ps_product_id (`product_id`)
+) engine = innodb
+  default charset = utf8mb4
+  collate = utf8mb4_unicode_ci comment ='商品SKU表';

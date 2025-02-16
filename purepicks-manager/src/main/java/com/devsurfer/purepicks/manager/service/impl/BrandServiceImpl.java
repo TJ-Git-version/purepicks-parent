@@ -4,11 +4,9 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.devsurfer.purepicks.manager.mapper.BrandMapper;
+import com.devsurfer.purepicks.manager.mapper.CategoryBrandMapper;
 import com.devsurfer.purepicks.manager.service.BrandService;
-import com.devsurfer.purepicks.model.dto.system.brand.BrandDeleteDto;
-import com.devsurfer.purepicks.model.dto.system.brand.BrandInsertDto;
-import com.devsurfer.purepicks.model.dto.system.brand.BrandQueryDto;
-import com.devsurfer.purepicks.model.dto.system.brand.BrandUpdateDto;
+import com.devsurfer.purepicks.model.dto.system.brand.*;
 import com.devsurfer.purepicks.model.entity.brand.Brand;
 import com.devsurfer.purepicks.model.result.ResultCodeEnum;
 import com.devsurfer.purepicks.model.vo.system.brand.BrandVo;
@@ -17,6 +15,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,9 +23,11 @@ import java.util.List;
 public class BrandServiceImpl implements BrandService {
 
     private final BrandMapper brandMapper;
+    private final CategoryBrandMapper categoryBrandMapper;
 
-    public BrandServiceImpl(BrandMapper brandMapper) {
+    public BrandServiceImpl(BrandMapper brandMapper, CategoryBrandMapper categoryBrandMapper) {
         this.brandMapper = brandMapper;
+        this.categoryBrandMapper = categoryBrandMapper;
     }
 
     @Override
@@ -64,5 +65,19 @@ public class BrandServiceImpl implements BrandService {
             throw new PurePicksException(resultCodeEnum.getCode(), StrUtil.format(resultCodeEnum.getMessage(), brandName));
         }
         brandMapper.deleteBrandBatch(brandDeleteDto.getIdList());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void insertCategoryBrand(CategoryBrandDto categoryBrandDto) {
+        // 1.删除旧品牌和分类关联
+        categoryBrandMapper.deleteCategoryBrandByBrandId(categoryBrandDto.getBrandId());
+        // 2.批量新增品牌和分类关联
+        categoryBrandMapper.insertBatch(categoryBrandDto);
+    }
+
+    @Override
+    public List<BrandVo> listBrandByCategoryId(Long categoryId) {
+        return brandMapper.listBrandByCategoryId(categoryId);
     }
 }

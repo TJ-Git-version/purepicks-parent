@@ -23,14 +23,16 @@
     <select id="selectCountByName" resultType="java.lang.Long">
         select count(1)
         from `brand`
-        where `name` = #{name} and `is_deleted` = 1
+        where `name` = #{name}
+          and `is_deleted` = 1
     </select>
 
     <select id="selectCountByNameNotId" resultType="java.lang.Long">
         select count(1)
         from `brand`
         where `name` = #{brandName}
-          and `id` != #{brandId}  and `is_deleted` = 1
+          and `id` != #{brandId}
+          and `is_deleted` = 1
     </select>
 
     <insert id="insertBrand">
@@ -71,5 +73,15 @@
         <foreach collection="brandIdList" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
+    </select>
+    <select id="listBrandByCategoryId" resultType="com.devsurfer.purepicks.model.vo.system.brand.BrandVo">
+        select b.*
+        from `brand` b
+                 inner join `category_brand` cb
+                            on cb.brand_id = b.id
+        where cb.category_id = #{categoryId}
+          and cb.`is_deleted` = 1
+          and b.`is_deleted` = 1
+        order by cb.id desc
     </select>
 </mapper>

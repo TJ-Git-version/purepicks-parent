@@ -17,6 +17,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductSpecServiceImpl implements ProductSpecService {
 
@@ -28,9 +30,15 @@ public class ProductSpecServiceImpl implements ProductSpecService {
 
     @Override
     public PageInfo<ProductSpecVo> pageList(ProductSpecQueryDto productSpecQueryDto) {
-        Page<ProductSpecVo> page = PageHelper.startPage(productSpecQueryDto.getPageNum(), productSpecQueryDto.getPageSize());
-        productSpecMapper.findProductSpecList(productSpecQueryDto);
-        return page.toPageInfo();
+        try (Page<ProductSpecVo> page = PageHelper.startPage(productSpecQueryDto.getPageNum(), productSpecQueryDto.getPageSize())) {
+            productSpecMapper.findProductSpecList(productSpecQueryDto);
+            return page.toPageInfo();
+        }
+    }
+
+    @Override
+    public List<ProductSpecVo> listAllProductSpec() {
+        return productSpecMapper.findProductSpecList(null);
     }
 
     @Override
@@ -55,4 +63,5 @@ public class ProductSpecServiceImpl implements ProductSpecService {
     public void deleteProductSpec(ProductSpecDeleteDto productSpecDeleteDto) {
         productSpecMapper.deleteProductSpecById(productSpecDeleteDto.getProductSpecId());
     }
+
 }

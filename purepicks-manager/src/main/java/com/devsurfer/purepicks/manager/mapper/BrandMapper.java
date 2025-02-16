@@ -23,4 +23,6 @@ public interface BrandMapper {
 
     List<Brand> findCategoryBrandInBrandId(@Param("idList") List<Long> idList);
 
+    List<BrandVo> listBrandByCategoryId(Long categoryId);
+
 }

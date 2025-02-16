@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devsurfer.purepicks.manager.mapper.CategoryBrandMapper">
+    <update id="deleteCategoryBrandByBrandId">
+        update `category_brand`
+        set `is_deleted` = 0
+        where `brand_id` = #{brandId}
+    </update>
+    <insert id="insertBatch">
+        insert into `category_brand`(`category_id`, `brand_id`)
+        values
+        <foreach collection="categoryIdList" item="categoryId" separator=",">
+            (#{categoryId}, #{brandId})
+        </foreach>
+    </insert>
+</mapper>

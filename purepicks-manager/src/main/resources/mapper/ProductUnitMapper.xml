@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devsurfer.purepicks.manager.mapper.ProductUnitMapper">
+
+    <sql id="product_unit_column">
+        `id`, `name`, `create_time`, `update_time`
+    </sql>
+
+
+    <select id="findProductUnitList" resultType="com.devsurfer.purepicks.model.vo.system.product.ProductUnitVo">
+        select
+        <include refid="product_unit_column">
+        </include>
+        from `product_unit`
+        where `is_deleted` = 1
+        order by `id` desc
+    </select>
+</mapper>

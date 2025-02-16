@@ -7,6 +7,8 @@ import com.devsurfer.purepicks.model.dto.system.product.ProductSpecUpdateDto;
 import com.devsurfer.purepicks.model.vo.system.product.ProductSpecVo;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 public interface ProductSpecService {
 
     PageInfo<ProductSpecVo> pageList(ProductSpecQueryDto productSpecQueryDto);
@@ -16,5 +18,7 @@ public interface ProductSpecService {
     void updateProductSpec(ProductSpecUpdateDto productSpecUpdateDto);
 
     void deleteProductSpec(ProductSpecDeleteDto productSpecDeleteDto);
+
+    List<ProductSpecVo> listAllProductSpec();
 
 }
