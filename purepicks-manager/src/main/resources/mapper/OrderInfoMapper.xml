@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devsurfer.purepicks.manager.mapper.OrderInfoMapper">
+
+    <select id="findOrderStaticsByYesterday" resultType="com.devsurfer.purepicks.model.entity.order.OrderStatistics">
+        SELECT DATE_FORMAT(`create_time`, '%Y-%m-%d') AS orderDate,
+               SUM(`total_amount`)                    AS totalAmount,
+               COUNT(`id`)                            AS totalNum
+        FROM order_info
+        WHERE DATE_FORMAT(`create_time`, '%Y-%m-%d') = #{yesterday}
+        GROUP BY DATE_FORMAT(`create_time`, '%Y-%m-%d')
+    </select>
+
+</mapper>

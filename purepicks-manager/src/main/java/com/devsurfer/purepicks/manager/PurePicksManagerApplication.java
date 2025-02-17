@@ -4,6 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author Dev Surfer
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @MapperScan("com.devsurfer.purepicks.manager.mapper")
 @ComponentScan("com.devsurfer.purepicks")
+@EnableScheduling
 public class PurePicksManagerApplication {
 
     public static void main(String[] args) {
