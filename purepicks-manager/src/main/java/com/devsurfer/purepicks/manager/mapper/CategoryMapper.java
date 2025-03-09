@@ -1,6 +1,6 @@
 package com.devsurfer.purepicks.manager.mapper;
 
-import com.devsurfer.purepicks.model.dto.system.category.CategoryQueryDto;
+import com.devsurfer.purepicks.model.dto.category.CategoryQueryDto;
 import com.devsurfer.purepicks.model.entity.category.Category;
 import org.apache.ibatis.annotations.Param;
 

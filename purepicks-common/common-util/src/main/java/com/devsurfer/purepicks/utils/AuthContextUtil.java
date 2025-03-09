@@ -1,6 +1,6 @@
 package com.devsurfer.purepicks.utils;
 
-import com.devsurfer.purepicks.model.vo.system.login.LoginUserInfoVo;
+import com.devsurfer.purepicks.model.vo.login.LoginUserInfoVo;
 
 /**
  * @author Dev Surfer

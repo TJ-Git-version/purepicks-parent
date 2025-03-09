@@ -1,7 +1,7 @@
 package com.devsurfer.purepicks.manager.helper;
 
-import com.devsurfer.purepicks.model.vo.system.category.CategoryExcelVo;
-import com.devsurfer.purepicks.model.vo.system.category.CategoryVo;
+import com.devsurfer.purepicks.model.vo.category.CategoryExcelVo;
+import com.devsurfer.purepicks.model.vo.category.CategoryVo;
 
 import java.util.ArrayList;
 import java.util.List;

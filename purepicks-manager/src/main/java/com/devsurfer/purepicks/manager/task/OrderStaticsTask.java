@@ -21,7 +21,6 @@ public class OrderStaticsTask {
     private final StatisticsMapper statisticsMapper;
 
     @Scheduled(cron = "0 0 2 * * ?")
-    // @Scheduled(cron = "0/1 * * * * ?")
     public void orderStatics() {
         // 获取前一天订单数据
         String yesterday = DateUtil.offsetDay(DateUtil.date(), -1).toString(new SimpleDateFormat("yyyy-MM-dd"));
@@ -32,6 +31,5 @@ public class OrderStaticsTask {
         }
         log.info("OrderStaticsTask-定时任务执行成功: 但是没有找到昨天的订单数据: {}", yesterday);
     }
-
 
 }

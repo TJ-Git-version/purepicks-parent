@@ -1,7 +1,7 @@
 package com.devsurfer.purepicks.manager.service;
 
-import com.devsurfer.purepicks.model.dto.system.brand.*;
-import com.devsurfer.purepicks.model.vo.system.brand.BrandVo;
+import com.devsurfer.purepicks.model.dto.brand.*;
+import com.devsurfer.purepicks.model.vo.brand.BrandVo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;

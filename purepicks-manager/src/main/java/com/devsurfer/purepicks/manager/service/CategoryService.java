@@ -1,10 +1,10 @@
 package com.devsurfer.purepicks.manager.service;
 
-import com.devsurfer.purepicks.model.dto.system.category.CategoryDeleteDto;
-import com.devsurfer.purepicks.model.dto.system.category.CategoryInsertDto;
-import com.devsurfer.purepicks.model.dto.system.category.CategoryQueryDto;
-import com.devsurfer.purepicks.model.dto.system.category.CategoryUpdateDto;
-import com.devsurfer.purepicks.model.vo.system.category.CategoryVo;
+import com.devsurfer.purepicks.model.dto.category.CategoryDeleteDto;
+import com.devsurfer.purepicks.model.dto.category.CategoryInsertDto;
+import com.devsurfer.purepicks.model.dto.category.CategoryQueryDto;
+import com.devsurfer.purepicks.model.dto.category.CategoryUpdateDto;
+import com.devsurfer.purepicks.model.vo.category.CategoryVo;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 

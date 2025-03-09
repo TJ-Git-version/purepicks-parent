@@ -1,7 +1,7 @@
 package com.devsurfer.purepicks.manager.service;
 
-import com.devsurfer.purepicks.model.dto.system.file.FileInfoQueryDto;
-import com.devsurfer.purepicks.model.vo.system.file.FileInfoVo;
+import com.devsurfer.purepicks.model.dto.file.FileInfoQueryDto;
+import com.devsurfer.purepicks.model.vo.file.FileInfoVo;
 import com.github.pagehelper.PageInfo;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;

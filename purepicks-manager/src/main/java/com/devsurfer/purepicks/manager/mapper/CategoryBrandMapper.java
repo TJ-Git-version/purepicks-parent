@@ -1,6 +1,6 @@
 package com.devsurfer.purepicks.manager.mapper;
 
-import com.devsurfer.purepicks.model.dto.system.brand.CategoryBrandDto;
+import com.devsurfer.purepicks.model.dto.brand.CategoryBrandDto;
 
 /**
  * @author Dev Surfer

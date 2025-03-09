@@ -5,7 +5,7 @@
         `id`, `spec_name`, `spec_value`, `create_time`, `update_time`, `is_deleted`
     </sql>
 
-    <select id="findProductSpecList" resultType="com.devsurfer.purepicks.model.vo.system.product.ProductSpecVo">
+    <select id="findProductSpecList" resultType="com.devsurfer.purepicks.model.vo.product.ProductSpecVo">
         select
         <include refid="product_spec_column"/>
         from `product_spec`

@@ -1,8 +1,8 @@
 package com.devsurfer.purepicks.manager.mapper;
 
-import com.devsurfer.purepicks.model.dto.system.file.FileInfoQueryDto;
+import com.devsurfer.purepicks.model.dto.file.FileInfoQueryDto;
 import com.devsurfer.purepicks.model.entity.file.FileInfo;
-import com.devsurfer.purepicks.model.vo.system.file.FileInfoVo;
+import com.devsurfer.purepicks.model.vo.file.FileInfoVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

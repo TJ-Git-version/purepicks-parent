@@ -2,7 +2,7 @@ package com.devsurfer.purepicks.manager.controller;
 
 import com.devsurfer.purepicks.manager.service.ProductUnitService;
 import com.devsurfer.purepicks.model.result.ResultUtil;
-import com.devsurfer.purepicks.model.vo.system.product.ProductUnitVo;
+import com.devsurfer.purepicks.model.vo.product.ProductUnitVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;

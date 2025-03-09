@@ -20,7 +20,7 @@
         from `file_info` where `file_id` = #{fileId}
     </select>
 
-    <select id="findFileList" resultType="com.devsurfer.purepicks.model.vo.system.file.FileInfoVo">
+    <select id="findFileList" resultType="com.devsurfer.purepicks.model.vo.file.FileInfoVo">
         select <include refid="file_column"/>
         from `file_info`
         <where>

@@ -1,6 +1,6 @@
 package com.devsurfer.purepicks.manager.mapper;
 
-import com.devsurfer.purepicks.model.vo.system.product.ProductUnitVo;
+import com.devsurfer.purepicks.model.vo.product.ProductUnitVo;
 
 import java.util.List;
 

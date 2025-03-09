@@ -1,8 +1,8 @@
 package com.devsurfer.purepicks.manager.service;
 
-import com.devsurfer.purepicks.model.dto.system.login.LoginDto;
-import com.devsurfer.purepicks.model.dto.system.login.LoginTokenDto;
-import com.devsurfer.purepicks.model.vo.system.login.LoginVo;
+import com.devsurfer.purepicks.model.dto.login.LoginDto;
+import com.devsurfer.purepicks.model.dto.login.LoginTokenDto;
+import com.devsurfer.purepicks.model.vo.login.LoginVo;
 
 /**
  * @author Dev Surfer

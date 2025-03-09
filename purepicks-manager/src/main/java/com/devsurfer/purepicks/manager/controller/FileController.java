@@ -1,9 +1,9 @@
 package com.devsurfer.purepicks.manager.controller;
 
 import com.devsurfer.purepicks.manager.service.FileService;
-import com.devsurfer.purepicks.model.dto.system.file.FileInfoQueryDto;
+import com.devsurfer.purepicks.model.dto.file.FileInfoQueryDto;
 import com.devsurfer.purepicks.model.result.ResultUtil;
-import com.devsurfer.purepicks.model.vo.system.file.FileInfoVo;
+import com.devsurfer.purepicks.model.vo.file.FileInfoVo;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

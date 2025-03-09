@@ -1,10 +1,10 @@
 package com.devsurfer.purepicks.manager.service;
 
-import com.devsurfer.purepicks.model.dto.system.product.ProductInsertDto;
-import com.devsurfer.purepicks.model.dto.system.product.ProductQueryDto;
-import com.devsurfer.purepicks.model.dto.system.product.ProductUpdateDto;
-import com.devsurfer.purepicks.model.dto.system.product.ReviewProductDto;
-import com.devsurfer.purepicks.model.vo.system.product.ProductVo;
+import com.devsurfer.purepicks.model.dto.product.ProductInsertDto;
+import com.devsurfer.purepicks.model.dto.product.ProductQueryDto;
+import com.devsurfer.purepicks.model.dto.product.ProductUpdateDto;
+import com.devsurfer.purepicks.model.dto.product.ReviewProductDto;
+import com.devsurfer.purepicks.model.vo.product.ProductVo;
 import com.github.pagehelper.PageInfo;
 
 /**

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.devsurfer.purepicks.manager.mapper.ProductMapper">
-    <resultMap id="productVo" type="com.devsurfer.purepicks.model.vo.system.product.ProductVo">
+    <resultMap id="productVo" type="com.devsurfer.purepicks.model.vo.product.ProductVo">
         <id column="id" property="id"/>
         <result column="product_name" property="productName"/>
         <result column="brand_id" property="brandId"/>
@@ -20,12 +20,12 @@
         <result column="review_info" property="reviewInfo"/>
         <result column="review_status" property="reviewStatus"/>
         <association property="productDetail"
-                     javaType="com.devsurfer.purepicks.model.vo.system.product.ProductDetailVo">
+                     javaType="com.devsurfer.purepicks.model.vo.product.ProductDetailVo">
             <result column="productDetailId" property="id"/>
             <result column="productDetailProductId" property="productId"/>
             <result column="productDetailImageUrl" property="imageUrl"/>
         </association>
-        <collection property="productSkuList" ofType="com.devsurfer.purepicks.model.vo.system.product.ProductSkuVo">
+        <collection property="productSkuList" ofType="com.devsurfer.purepicks.model.vo.product.ProductSkuVo">
             <result column="productSkuId" property="id"/>
             <result column="productSkuProductId" property="productId"/>
             <result column="productSkuCode" property="code"/>
@@ -42,7 +42,7 @@
         </collection>
     </resultMap>
 
-    <resultMap id="productListVo" type="com.devsurfer.purepicks.model.vo.system.product.ProductVo">
+    <resultMap id="productListVo" type="com.devsurfer.purepicks.model.vo.product.ProductVo">
         <id column="id" property="id"/>
         <result column="product_name" property="productName"/>
         <result column="brand_id" property="brandId"/>

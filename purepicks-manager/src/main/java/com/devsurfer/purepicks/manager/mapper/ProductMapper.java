@@ -1,11 +1,11 @@
 package com.devsurfer.purepicks.manager.mapper;
 
-import com.devsurfer.purepicks.model.dto.system.product.ProductQueryDto;
-import com.devsurfer.purepicks.model.dto.system.product.ReviewProductDto;
+import com.devsurfer.purepicks.model.dto.product.ProductQueryDto;
+import com.devsurfer.purepicks.model.dto.product.ReviewProductDto;
 import com.devsurfer.purepicks.model.entity.product.Product;
 import com.devsurfer.purepicks.model.entity.product.ProductDetail;
 import com.devsurfer.purepicks.model.entity.product.ProductSku;
-import com.devsurfer.purepicks.model.vo.system.product.ProductVo;
+import com.devsurfer.purepicks.model.vo.product.ProductVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

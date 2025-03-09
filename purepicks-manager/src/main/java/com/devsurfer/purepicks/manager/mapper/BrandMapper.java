@@ -1,8 +1,8 @@
 package com.devsurfer.purepicks.manager.mapper;
 
-import com.devsurfer.purepicks.model.dto.system.brand.BrandQueryDto;
+import com.devsurfer.purepicks.model.dto.brand.BrandQueryDto;
 import com.devsurfer.purepicks.model.entity.brand.Brand;
-import com.devsurfer.purepicks.model.vo.system.brand.BrandVo;
+import com.devsurfer.purepicks.model.vo.brand.BrandVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package com.devsurfer.purepicks.manager.service.impl;
 
 import com.devsurfer.purepicks.manager.mapper.ProductUnitMapper;
 import com.devsurfer.purepicks.manager.service.ProductUnitService;
-import com.devsurfer.purepicks.model.vo.system.product.ProductUnitVo;
+import com.devsurfer.purepicks.model.vo.product.ProductUnitVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

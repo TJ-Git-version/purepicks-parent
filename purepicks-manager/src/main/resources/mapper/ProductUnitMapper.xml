@@ -7,7 +7,7 @@
     </sql>
 
 
-    <select id="findProductUnitList" resultType="com.devsurfer.purepicks.model.vo.system.product.ProductUnitVo">
+    <select id="findProductUnitList" resultType="com.devsurfer.purepicks.model.vo.product.ProductUnitVo">
         select
         <include refid="product_unit_column">
         </include>

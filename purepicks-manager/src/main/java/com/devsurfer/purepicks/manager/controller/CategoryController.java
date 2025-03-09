@@ -1,12 +1,12 @@
 package com.devsurfer.purepicks.manager.controller;
 
 import com.devsurfer.purepicks.manager.service.CategoryService;
-import com.devsurfer.purepicks.model.dto.system.category.CategoryDeleteDto;
-import com.devsurfer.purepicks.model.dto.system.category.CategoryInsertDto;
-import com.devsurfer.purepicks.model.dto.system.category.CategoryQueryDto;
-import com.devsurfer.purepicks.model.dto.system.category.CategoryUpdateDto;
+import com.devsurfer.purepicks.model.dto.category.CategoryDeleteDto;
+import com.devsurfer.purepicks.model.dto.category.CategoryInsertDto;
+import com.devsurfer.purepicks.model.dto.category.CategoryQueryDto;
+import com.devsurfer.purepicks.model.dto.category.CategoryUpdateDto;
 import com.devsurfer.purepicks.model.result.ResultUtil;
-import com.devsurfer.purepicks.model.vo.system.category.CategoryVo;
+import com.devsurfer.purepicks.model.vo.category.CategoryVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;

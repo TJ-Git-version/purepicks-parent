@@ -7,8 +7,8 @@ import com.alibaba.excel.read.listener.ReadListener;
 import com.devsurfer.purepicks.manager.helper.CategoryHelper;
 import com.devsurfer.purepicks.manager.mapper.CategoryMapper;
 import com.devsurfer.purepicks.model.entity.category.Category;
-import com.devsurfer.purepicks.model.vo.system.category.CategoryExcelVo;
-import com.devsurfer.purepicks.model.vo.system.category.CategoryVo;
+import com.devsurfer.purepicks.model.vo.category.CategoryExcelVo;
+import com.devsurfer.purepicks.model.vo.category.CategoryVo;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,13 +25,10 @@ import java.util.stream.Collectors;
 public class ReadCategoryListener implements ReadListener<CategoryExcelVo> {
 
     private final CategoryMapper categoryMapper;
-
-    private final Map<Long, Category> categoryMap;
     private final Map<String, Long> categoryNameToIdMap;
 
     public ReadCategoryListener(CategoryMapper categoryMapper, List<Category> categoryList) {
         this.categoryMapper = categoryMapper;
-        this.categoryMap = categoryList.stream().collect(Collectors.toMap(Category::getId, category -> category));
         this.categoryNameToIdMap = CategoryHelper.buildExcelCategory(BeanUtil.copyToList(categoryList, CategoryVo.class)).stream().collect(Collectors.toMap(CategoryExcelVo::getCategoryName, CategoryExcelVo::getId));
     }
 
@@ -42,8 +39,7 @@ public class ReadCategoryListener implements ReadListener<CategoryExcelVo> {
             List<String> categoryNameList = Arrays.stream(categoryName.trim().split("/")).toList();
             StringBuilder currentPath = new StringBuilder();
             Long parentCategoryId = 0L;
-            for (int i = 0; i < categoryNameList.size(); i++) {
-                String name = categoryNameList.get(i);
+            for (String name : categoryNameList) {
                 if (!currentPath.isEmpty()) {
                     currentPath.append("/");
                 }

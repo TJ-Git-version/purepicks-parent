@@ -1,12 +1,12 @@
 package com.devsurfer.purepicks.manager.controller;
 
 import com.devsurfer.purepicks.manager.service.ProductSpecService;
-import com.devsurfer.purepicks.model.dto.system.product.ProductSpecDeleteDto;
-import com.devsurfer.purepicks.model.dto.system.product.ProductSpecInsertDto;
-import com.devsurfer.purepicks.model.dto.system.product.ProductSpecQueryDto;
-import com.devsurfer.purepicks.model.dto.system.product.ProductSpecUpdateDto;
+import com.devsurfer.purepicks.model.dto.product.ProductSpecDeleteDto;
+import com.devsurfer.purepicks.model.dto.product.ProductSpecInsertDto;
+import com.devsurfer.purepicks.model.dto.product.ProductSpecQueryDto;
+import com.devsurfer.purepicks.model.dto.product.ProductSpecUpdateDto;
 import com.devsurfer.purepicks.model.result.ResultUtil;
-import com.devsurfer.purepicks.model.vo.system.product.ProductSpecVo;
+import com.devsurfer.purepicks.model.vo.product.ProductSpecVo;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

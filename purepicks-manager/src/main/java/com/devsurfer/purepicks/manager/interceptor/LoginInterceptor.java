@@ -5,7 +5,7 @@ import cn.hutool.json.JSONUtil;
 import com.devsurfer.purepicks.model.enums.RedisKeyConstant;
 import com.devsurfer.purepicks.model.result.ResultCodeEnum;
 import com.devsurfer.purepicks.model.result.ResultUtil;
-import com.devsurfer.purepicks.model.vo.system.login.LoginUserInfoVo;
+import com.devsurfer.purepicks.model.vo.login.LoginUserInfoVo;
 import com.devsurfer.purepicks.utils.AuthContextUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

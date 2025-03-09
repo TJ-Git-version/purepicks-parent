@@ -21,6 +21,7 @@ springdoc:
       paths-to-match: '/admin/**'
       packages-to-scan: com.devsurfer.purepicks.manager.controller
 
+
 purepicks:
   auth:
     noAuthUrls:
@@ -30,3 +31,12 @@ purepicks:
       - "/webjars/**"
       - "/v3/api-docs/**"
       - "/swagger-ui.html"
+knife4j:
+  insight:
+    enable:
+logging:
+  file:
+    path: ./logs
+  logback:
+    rollingpolicy:
+      max-file-size: 100MB

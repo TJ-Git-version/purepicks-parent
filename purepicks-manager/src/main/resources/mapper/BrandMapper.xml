@@ -5,7 +5,7 @@
         `id`, `name`, `logo`, `sort`, `create_time`, `update_time`, `is_deleted`
     </sql>
 
-    <select id="findBrandList" resultType="com.devsurfer.purepicks.model.vo.system.brand.BrandVo">
+    <select id="findBrandList" resultType="com.devsurfer.purepicks.model.vo.brand.BrandVo">
         select
         <include refid="brand_column"/>
         from `brand`
@@ -74,7 +74,7 @@
             #{id}
         </foreach>
     </select>
-    <select id="listBrandByCategoryId" resultType="com.devsurfer.purepicks.model.vo.system.brand.BrandVo">
+    <select id="listBrandByCategoryId" resultType="com.devsurfer.purepicks.model.vo.brand.BrandVo">
         select b.*
         from `brand` b
                  inner join `category_brand` cb
