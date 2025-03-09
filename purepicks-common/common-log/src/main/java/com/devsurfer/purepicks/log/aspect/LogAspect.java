@@ -54,8 +54,10 @@ public class LogAspect {
             // 业务异常执行
             afterHandleLog(proceed, sysLog, operationLog, LogOperateStatusEnum.FAIL, e.getMessage());
             logger.info("业务异常：{}", e.getMessage());
+            throw new RuntimeException();
+        } finally {
+            asyncOperationLogService.saveOperationLog(operationLog);
         }
-        asyncOperationLogService.saveOperationLog(operationLog);
         return proceed;
     }
 
