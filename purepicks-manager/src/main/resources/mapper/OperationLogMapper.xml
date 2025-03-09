@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devsurfer.purepicks.manager.mapper.OperationLogMapper">
+
+    <insert id="insertLog">
+        insert into `operation_log`(`module_name`,
+                                    `method_name`,
+                                    `method_class_path`,
+                                    `business_type`,
+                                    `request_method`,
+                                    `operate_type`,
+                                    `operate_id`,
+                                    `operate_name`,
+                                    `request_url`,
+                                    `request_ip`,
+                                    `request_param`,
+                                    `response_result`,
+                                    `operate_status`,
+                                    `error_msg`,
+                                    `operate_time`)
+        values (#{moduleName}, #{methodName}, #{methodClassPath}, #{businessType.type}, #{requestMethod}, #{operateType.type},
+                #{operateId}, #{operateName}, #{requestUrl}, #{requestIp}, #{requestParam}, #{responseResult},
+                #{operateStatus.value}, #{errorMsg}, #{operateTime})
+    </insert>
+</mapper>

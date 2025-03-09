@@ -14,10 +14,10 @@ public enum LogOperateTypeEnum {
     OTHER(0, "其他"),
 
     @Schema(description = "后台用户")
-    BACKEND_USER(1, "后台用户"),
+    MANAGER_USER(1, "后台用户"),
 
-    @Schema(description = "小程序用户")
-    APPLET_USER(2, "小程序用户");
+    @Schema(description = "手机端用户")
+    MOBILE_USER(2, "手机端用户");
 
     private final Integer type;
 

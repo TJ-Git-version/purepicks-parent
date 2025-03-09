@@ -19,12 +19,18 @@
     </properties>
 
     <dependencies>
-        <!--公共工具类模块-->
+        <!--日志模块-->
         <dependency>
-            <groupId>com.devsurfer.purepicks.util</groupId>
-            <artifactId>common-util</artifactId>
+            <groupId>com.devsurfer.purepicks.common</groupId>
+            <artifactId>common-log</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!--公共工具类模块-->
+<!--        <dependency>-->
+<!--            <groupId>com.devsurfer.purepicks.util</groupId>-->
+<!--            <artifactId>common-util</artifactId>-->
+<!--            <version>1.0-SNAPSHOT</version>-->
+<!--        </dependency>-->
         <!--spring boot 启步依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

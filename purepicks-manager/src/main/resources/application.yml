@@ -7,7 +7,6 @@ spring:
   profiles:
     active: dev
 
-
 # springdoc-openapi项目配置
 springdoc:
   swagger-ui:
@@ -20,7 +19,6 @@ springdoc:
     - group: 'manager-api'
       paths-to-match: '/admin/**'
       packages-to-scan: com.devsurfer.purepicks.manager.controller
-
 
 purepicks:
   auth:

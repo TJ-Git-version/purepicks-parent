@@ -20,6 +20,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(PurePicksException.class)
     public ResultUtil<?> PurePicksExceptionHandler(PurePicksException exception) {
+        exception.printStackTrace();
         return ResultUtil.error(exception.getCode(), exception.getMessage());
     }
 
@@ -28,6 +29,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResultUtil<?> maxUploadSizeExceededException(MaxUploadSizeExceededException exception) {
+        exception.printStackTrace();
         return ResultUtil.error(ResultCodeEnum.FILE_SIZE_TOO_LARGE_ERROR);
     }
 

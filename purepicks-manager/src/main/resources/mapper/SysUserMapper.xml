@@ -63,8 +63,8 @@
     </select>
 
     <insert id="insertUser">
-        insert into `sys_user` (username, nickname, password, phone, avatar, `desc`, status)
-        values (#{username}, #{nickname}, #{password}, #{phone}, #{avatar}, #{desc}, #{status})
+        insert into `sys_user` (username, nickname, password, phone, avatar, `desc`)
+        values (#{username}, #{nickname}, #{password}, #{phone}, #{avatar}, #{desc})
     </insert>
 
     <select id="selectByIdAndUserName" resultMap="userBaseMap">
