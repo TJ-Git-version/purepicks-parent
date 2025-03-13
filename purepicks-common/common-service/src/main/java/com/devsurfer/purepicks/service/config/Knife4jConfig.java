@@ -3,6 +3,7 @@ package com.devsurfer.purepicks.service.config;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,15 +21,25 @@ public class Knife4jConfig {
      * 后台管理接口文档
      * 使用配置文件替代以下配置：约定大于配置
      */
-    //@Bean
-    //public GroupedOpenApi managerApi() {
-    //    return GroupedOpenApi.builder()
-    //            .group("manager-api") // 分组名称
-    //            .pathsToMatch("/admin/**") // 匹配路径
-    //            .packagesToScan("com.devsurfer.purepicks.manager.controller") // 指定handler处理器路径
-    //            .build();
-    //}
+    @Bean
+    public GroupedOpenApi managerApi() {
+        return GroupedOpenApi.builder()
+                .group("manager-api") // 分组名称
+                .pathsToMatch("/admin/**") // 匹配路径
+                .packagesToScan("com.devsurfer.purepicks.manager.controller") // 指定handler处理器路径
+                .build();
+    }
 
+    /**
+     * H5端接口文档
+     */
+    @Bean
+    public GroupedOpenApi webApi() {
+        return GroupedOpenApi.builder()
+                .group("web-api")
+                .pathsToMatch("/api/**")
+                .build();
+    }
 
     /**
      * 自定义api基本信息

@@ -3,14 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
     <parent>
         <groupId>com.devsurfer.purepicks</groupId>
         <artifactId>purepicks-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.devsurfer.purepicks.manager</groupId>
-    <artifactId>purepicks-manager</artifactId>
+    <modules>
+        <module>service-product</module>
+    </modules>
+
+    <groupId>com.devsurfer.purepicks.service</groupId>
+    <artifactId>purepicks-service</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -19,16 +24,21 @@
     </properties>
 
     <dependencies>
-        <!--日志模块-->
-        <dependency>
-            <groupId>com.devsurfer.purepicks.common</groupId>
-            <artifactId>common-log</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+        <!--公共service-->
         <dependency>
             <groupId>com.devsurfer.purepicks.service</groupId>
             <artifactId>common-service</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!--服务注册中心-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <!--流量控制-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>
     </dependencies>
 

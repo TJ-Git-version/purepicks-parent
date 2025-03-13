@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devsurfer.purepicks.product.mapper.ProductMapper">
+
+    <resultMap id="productSkuVoMap" type="com.devsurfer.purepicks.model.vo.h5.ProductSkuVo">
+        <id property="id" column="id"/>
+        <result property="productId" column="product_id"/>
+        <result property="skuCode" column="code"/>
+        <result property="skuName" column="name"/>
+        <result property="thumbImage" column="thumb_image"/>
+        <result property="saleNum" column="sale_num"/>
+        <result property="salePrice" column="sale_price"/>
+        <result property="marketPrice" column="market_price"/>
+        <result property="costPrice" column="cost_price"/>
+        <result property="skuSpec" column="spec_name"/>
+        <result property="weight" column="weight"/>
+        <result property="volume" column="volume"/>
+        <result property="status" column="status"/>
+        <result property="stockNum" column="stock_num"/>
+    </resultMap>
+
+    <sql id="product_sku_column">
+        ps.`id`, ps.`product_id`, ps.`code`, ps.`name`, ps.`thumb_image`, ps.`sale_price`, ps.`sale_num`,
+        ps.`market_price`, ps.`cost_price`, ps.`spec_name`, ps.`weight`, ps.`volume`, ps.`status`, ps.`stock_num`
+    </sql>
+
+    <select id="findProductSkuList" resultMap="productSkuVoMap">
+        select
+        <include refid="product_sku_column"/>
+        from `product_sku` ps
+        inner join product p on p.id = ps.product_id
+        <where>
+            ps.`status` = 1
+            and p.`review_status` = 1
+            and p.`is_deleted` = 1
+            and ps.`is_deleted` = 1
+        </where>
+        order by ps.`sale_num` desc, ps.`create_time` desc
+    </select>
+</mapper>
