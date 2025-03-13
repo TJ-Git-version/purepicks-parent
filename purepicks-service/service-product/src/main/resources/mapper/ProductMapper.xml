@@ -36,5 +36,6 @@
             and ps.`is_deleted` = 1
         </where>
         order by ps.`sale_num` desc, ps.`create_time` desc
+        limit 20
     </select>
 </mapper>

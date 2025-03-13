@@ -31,7 +31,7 @@ purepicks:
       - "/swagger-ui.html"
 knife4j:
   insight:
-    enable:
+    enable: true
 logging:
   file:
     path: ./logs

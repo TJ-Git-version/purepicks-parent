@@ -35,6 +35,9 @@ public class ProductSku extends BaseEntity {
     @Schema(description = "商品SKU图片")
     private String thumbImage;
 
+    @Schema(description = "销售数量")
+    private Long saleNum;
+
     @Schema(description = "售价")
     private BigDecimal salePrice;
 
