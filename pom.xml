@@ -13,6 +13,7 @@
         <module>purepicks-model</module>
         <module>purepicks-manager</module>
         <module>purepicks-service</module>
+        <module>purepicks-server-gateway</module>
     </modules>
 
     <!--指定父依赖，锁定springboot相关依赖版本-->
@@ -110,5 +111,13 @@
         </dependencies>
     </dependencyManagement>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
