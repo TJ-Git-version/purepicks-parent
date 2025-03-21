@@ -1,36 +1,46 @@
 package com.devsurfer.purepicks.product.service.impl;
 
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
+import com.devsurfer.purepicks.model.enums.redis.RedisKeyConstant;
 import com.devsurfer.purepicks.model.vo.h5.CategoryVo;
 import com.devsurfer.purepicks.product.mapper.CategoryMapper;
 import com.devsurfer.purepicks.product.service.CategoryService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.redis.core.RedisTemplate;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Dev Surfer
- * @version 1.0.0
- * date 2025/3/13 22:16
- * description TODO
  */
 @Service
 @AllArgsConstructor
+@Slf4j
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryMapper categoryMapper;
 
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final StringRedisTemplate stringRedisTemplate;
 
     @Override
     public List<CategoryVo> findCategoryTree() {
-        // redisTemplate.opsForValue()
-        List<CategoryVo> categoryList = categoryMapper.findAll();
-        return categoryList.stream().filter(categoryVo -> categoryVo.getParentId() == 0)
-                .peek(parentCategory -> buildTree(parentCategory, categoryList))
+        String categoryObj =  stringRedisTemplate.opsForValue().get(RedisKeyConstant.APPLET_CATEGORY_ONE.getKey());
+        if (StrUtil.isNotBlank(categoryObj)) {
+            log.info("从redis缓存中获取所有一级分类数据");
+            return JSONUtil.toList(categoryObj, CategoryVo.class);
+        }
+        List<CategoryVo> dbCategoryList = categoryMapper.findAll();
+        List<CategoryVo> categoryList = dbCategoryList.stream().filter(categoryVo -> categoryVo.getParentId() == 0)
+                .peek(parentCategory -> buildTree(parentCategory, dbCategoryList))
                 .toList();
+        log.info("从数据库中获取所有一级分类数据");
+        stringRedisTemplate.opsForValue().set(RedisKeyConstant.APPLET_CATEGORY_ONE.getKey(), JSONUtil.toJsonStr(categoryList), 7, TimeUnit.DAYS);
+        return categoryList;
     }
 
     private void buildTree(CategoryVo parentNode, List<CategoryVo> allCategoryList) {
