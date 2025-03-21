@@ -7,7 +7,7 @@ import com.devsurfer.purepicks.manager.service.PortalService;
 import com.devsurfer.purepicks.model.dto.login.LoginDto;
 import com.devsurfer.purepicks.model.dto.login.LoginTokenDto;
 import com.devsurfer.purepicks.model.entity.system.SysUser;
-import com.devsurfer.purepicks.model.enums.RedisKeyConstant;
+import com.devsurfer.purepicks.model.enums.redis.RedisKeyConstant;
 import com.devsurfer.purepicks.model.result.ResultCodeEnum;
 import com.devsurfer.purepicks.model.vo.login.LoginVo;
 import com.devsurfer.purepicks.service.handle.PurePicksException;

@@ -2,7 +2,7 @@ package com.devsurfer.purepicks.manager.interceptor;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import com.devsurfer.purepicks.model.enums.RedisKeyConstant;
+import com.devsurfer.purepicks.model.enums.redis.RedisKeyConstant;
 import com.devsurfer.purepicks.model.result.ResultCodeEnum;
 import com.devsurfer.purepicks.model.result.ResultUtil;
 import com.devsurfer.purepicks.model.vo.login.LoginUserInfoVo;
@@ -22,8 +22,8 @@ import java.io.PrintWriter;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-import static com.devsurfer.purepicks.model.enums.RedisKeyConstant.LOGIN_REFRESH_TOKEN;
-import static com.devsurfer.purepicks.model.enums.RedisKeyConstant.LOGIN_TOKEN;
+import static com.devsurfer.purepicks.model.enums.redis.RedisKeyConstant.LOGIN_REFRESH_TOKEN;
+import static com.devsurfer.purepicks.model.enums.redis.RedisKeyConstant.LOGIN_TOKEN;
 
 /**
  * @author Dev Surfer

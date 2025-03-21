@@ -15,11 +15,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableConfigurationProperties({MinioProperties.class})
 public class MinioConfig {
-
     @Bean
     public MinioClient minioClient(MinioProperties minioProperties) {
         return MinioClient.builder()
-                .endpoint(minioProperties.getEndpoint(), 9000, false)
+                .endpoint(minioProperties.getEndpoint(), minioProperties.getPort(), false)
                 .credentials(minioProperties.getAccessKey(), minioProperties.getSecretKey())
                 .build();
     }

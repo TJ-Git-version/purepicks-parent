@@ -22,9 +22,9 @@ public class Knife4jConfig {
      * 使用配置文件替代以下配置：约定大于配置
      */
     @Bean
-    public GroupedOpenApi managerApi() {
+    public GroupedOpenApi apiManager() {
         return GroupedOpenApi.builder()
-                .group("manager-api") // 分组名称
+                .group("api-manager") // 分组名称
                 .pathsToMatch("/admin/**") // 匹配路径
                 .packagesToScan("com.devsurfer.purepicks.manager.controller") // 指定handler处理器路径
                 .build();

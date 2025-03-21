@@ -4,6 +4,7 @@ import com.devsurfer.purepicks.model.vo.h5.CategoryVo;
 import com.devsurfer.purepicks.product.mapper.CategoryMapper;
 import com.devsurfer.purepicks.product.service.CategoryService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +22,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryMapper categoryMapper;
 
+    private final RedisTemplate<String, Object> redisTemplate;
+
     @Override
     public List<CategoryVo> findCategoryTree() {
+        // redisTemplate.opsForValue()
         List<CategoryVo> categoryList = categoryMapper.findAll();
         return categoryList.stream().filter(categoryVo -> categoryVo.getParentId() == 0)
                 .peek(parentCategory -> buildTree(parentCategory, categoryList))

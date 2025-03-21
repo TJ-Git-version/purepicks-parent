@@ -19,25 +19,19 @@ public class RedisConfig {
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-
         // 设置redis连接池工厂
         redisTemplate.setConnectionFactory(redisConnectionFactory);
-
         // 设置key序列化方式
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         // 设置value序列化方式
-        redisTemplate.setValueSerializer(new StringRedisSerializer());
-
+        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         // 设置String序列化方式
         redisTemplate.setStringSerializer(new StringRedisSerializer());
-
         // 设置hash序列化方式
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
-
         // 设置默认序列化方式
         redisTemplate.setDefaultSerializer(new GenericJackson2JsonRedisSerializer());
-
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
     }

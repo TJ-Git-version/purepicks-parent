@@ -36,6 +36,6 @@
             `is_deleted` = 1
             and `status` = 1
         </where>
-        order `sort`
+        order by `sort`
     </select>
 </mapper>

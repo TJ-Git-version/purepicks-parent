@@ -3,7 +3,7 @@ package com.devsurfer.purepicks.manager.service.impl;
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
 import com.devsurfer.purepicks.manager.service.ValidateCodeService;
-import com.devsurfer.purepicks.model.enums.RedisKeyConstant;
+import com.devsurfer.purepicks.model.enums.redis.RedisKeyConstant;
 import com.devsurfer.purepicks.model.vo.login.ValidateCodeVo;
 import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import static com.devsurfer.purepicks.model.enums.RedisKeyConstant.LOGIN_VALIDATE_CODE;
+import static com.devsurfer.purepicks.model.enums.redis.RedisKeyConstant.LOGIN_VALIDATE_CODE;
 
 /**
  * @author Dev Surfer
