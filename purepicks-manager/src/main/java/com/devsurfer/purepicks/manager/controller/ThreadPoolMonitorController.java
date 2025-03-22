@@ -22,7 +22,9 @@ public class ThreadPoolMonitorController {
     @Operation(summary = "查询-cpu线程池状态")
     public String getThreadCpuPoolStatus() {
         return String.format(
-                "CPU Pool Size: %d, Active Threads: %d, Queue Size: %d, Completed Tasks: %d",
+                "CPU Core Size %d, Max Size %d, Pool Size: %d, Active Threads: %d, Queue Size: %d, Completed Tasks: %d",
+                taskExecutor.getCorePoolSize(),
+                taskExecutor.getMaxPoolSize(),
                 taskExecutor.getPoolSize(),
                 taskExecutor.getActiveCount(),
                 taskExecutor.getQueueSize(),
@@ -34,7 +36,9 @@ public class ThreadPoolMonitorController {
     @Operation(summary = "查询-io线程池状态")
     public String getThreadIoPoolStatus() {
         return String.format(
-                "IO Pool Size: %d, Active Threads: %d, Queue Size: %d, Completed Tasks: %d",
+                "CPU Core Size %d, Max Size %d, Pool Size: %d, Active Threads: %d, Queue Size: %d, Completed Tasks: %d",
+                ioTaskExecutor.getCorePoolSize(),
+                ioTaskExecutor.getMaxPoolSize(),
                 ioTaskExecutor.getPoolSize(),
                 ioTaskExecutor.getActiveCount(),
                 ioTaskExecutor.getQueueSize(),
@@ -45,16 +49,34 @@ public class ThreadPoolMonitorController {
     @GetMapping("/adjust-io-pool")
     @Operation(summary = "临时更新-IO线程池参数")
     public String adjustThreadIoPool(@RequestParam int corePoolSize, @RequestParam int maxPoolSize) {
-        ioTaskExecutor.setCorePoolSize(corePoolSize);
+        // 确保线程池未关闭
+        if (ioTaskExecutor.getThreadPoolExecutor().isShutdown()) {
+            return "Thread pool is already shutdown";
+        }
+
+        // 确保参数合法性
+        if (corePoolSize < 0 || corePoolSize > maxPoolSize) {
+            return "Invalid parameters: corePoolSize=" + corePoolSize + ", maxPoolSize=" + maxPoolSize;
+        }
         ioTaskExecutor.setMaxPoolSize(maxPoolSize);
+        ioTaskExecutor.setCorePoolSize(corePoolSize);
         return "IO Thread pool adjusted: corePoolSize=" + corePoolSize + ", maxPoolSize=" + maxPoolSize;
     }
 
     @GetMapping("/adjust-cpu-pool")
     @Operation(summary = "临时更新-CPU线程池参数")
     public String adjustThreadCpuPool(@RequestParam int corePoolSize, @RequestParam int maxPoolSize) {
-        taskExecutor.setCorePoolSize(corePoolSize);
+        // 确保线程池未关闭
+        if (taskExecutor.getThreadPoolExecutor().isShutdown()) {
+            return "Thread pool is already shutdown";
+        }
+
+        // 确保参数合法性
+        if (corePoolSize < 0 || corePoolSize > maxPoolSize) {
+            return "Invalid parameters: corePoolSize=" + corePoolSize + ", maxPoolSize=" + maxPoolSize;
+        }
         taskExecutor.setMaxPoolSize(maxPoolSize);
+        taskExecutor.setCorePoolSize(corePoolSize);
         return "CPU Thread pool adjusted: corePoolSize=" + corePoolSize + ", maxPoolSize=" + maxPoolSize;
     }
 }
