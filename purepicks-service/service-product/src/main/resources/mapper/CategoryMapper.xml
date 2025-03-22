@@ -38,4 +38,16 @@
         </where>
         order by `sort`
     </select>
+
+    <select id="findCategoryById" resultType="com.devsurfer.purepicks.model.vo.h5.CategoryVo">
+        select
+        <include refid="category_column"/>
+        from `category`
+        <where>
+            `is_deleted` = 1
+            and `status` = 1
+            and `id` = #{id}
+        </where>
+        order by `sort`
+    </select>
 </mapper>

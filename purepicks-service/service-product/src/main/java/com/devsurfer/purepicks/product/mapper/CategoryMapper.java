@@ -16,4 +16,5 @@ public interface CategoryMapper {
 
     List<CategoryVo> findAll();
 
+    CategoryVo findCategoryById(Long id);
 }

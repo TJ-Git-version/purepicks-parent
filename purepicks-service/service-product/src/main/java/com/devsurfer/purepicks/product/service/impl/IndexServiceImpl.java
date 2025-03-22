@@ -1,8 +1,8 @@
 package com.devsurfer.purepicks.product.service.impl;
 
 import com.devsurfer.purepicks.model.vo.h5.IndexVo;
-import com.devsurfer.purepicks.product.mapper.CategoryMapper;
 import com.devsurfer.purepicks.product.mapper.ProductMapper;
+import com.devsurfer.purepicks.product.service.CategoryService;
 import com.devsurfer.purepicks.product.service.IndexService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,12 +17,13 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class IndexServiceImpl implements IndexService {
 
-    private final CategoryMapper categoryMapper;
+    private final CategoryService categoryService;
+
 
     private final ProductMapper productMapper;
 
     @Override
     public IndexVo findIndexDate() {
-        return new IndexVo(categoryMapper.findOneCategory(), productMapper.findProductSkuList());
+        return new IndexVo(categoryService.findOneCategory(), productMapper.findProductSkuList());
     }
 }

@@ -1,24 +1,23 @@
 package com.devsurfer.purepicks.model.vo.h5;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.ArrayList;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 
 /**
  * @author Dev Surfer
- * @version 1.0.0
- * date 2025/3/11 23:34
- * description TODO
  */
 @Data
 @Schema(description = "分类响应实体")
-@AllArgsConstructor
-public class CategoryVo {
+public class CategoryVo implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Schema(description = "主键ID")
     private Long id;
@@ -43,9 +42,5 @@ public class CategoryVo {
 
     @Schema(description = "下级分类")
     private List<CategoryVo> children;
-
-    public CategoryVo() {
-        this.children = new ArrayList<>();
-    }
 
 }

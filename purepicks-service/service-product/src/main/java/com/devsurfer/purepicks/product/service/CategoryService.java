@@ -14,4 +14,6 @@ public interface CategoryService {
 
     List<CategoryVo> findCategoryTree();
 
+    List<CategoryVo> findOneCategory();
+
 }

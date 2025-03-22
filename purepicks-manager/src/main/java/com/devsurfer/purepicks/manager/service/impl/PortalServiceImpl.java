@@ -7,7 +7,7 @@ import com.devsurfer.purepicks.manager.service.PortalService;
 import com.devsurfer.purepicks.model.dto.login.LoginDto;
 import com.devsurfer.purepicks.model.dto.login.LoginTokenDto;
 import com.devsurfer.purepicks.model.entity.system.SysUser;
-import com.devsurfer.purepicks.model.enums.redis.RedisKeyConstant;
+import com.devsurfer.purepicks.model.enums.redis.RedisKeyConstantEnum;
 import com.devsurfer.purepicks.model.result.ResultCodeEnum;
 import com.devsurfer.purepicks.model.vo.login.LoginVo;
 import com.devsurfer.purepicks.service.handle.PurePicksException;
@@ -40,7 +40,7 @@ public class PortalServiceImpl implements PortalService {
         if (StrUtil.isBlank(loginDto.getUsername()) || StrUtil.isBlank(loginDto.getPassword()) || StrUtil.isBlank(loginDto.getCaptchaKey()) || StrUtil.isBlank(loginDto.getInputCaptcha())) {
             PurePicksException.error(ResultCodeEnum.PARAMETER_INVALID_ERROR);
         }
-        String loginValidateCodeRedisKey = RedisKeyConstant.build(RedisKeyConstant.LOGIN_VALIDATE_CODE, loginDto.getCaptchaKey());
+        String loginValidateCodeRedisKey = RedisKeyConstantEnum.build(RedisKeyConstantEnum.LOGIN_VALIDATE_CODE, loginDto.getCaptchaKey());
         String validateCode = (String) redisTemplate.opsForValue().get(loginValidateCodeRedisKey);
         // 校验验证码是否已过期
         if (StrUtil.isBlank(validateCode)) {
@@ -76,8 +76,8 @@ public class PortalServiceImpl implements PortalService {
         String refreshToken = UUID.randomUUID().toString().replace("-", "");
 
         // 将登录令牌保存到redis中
-        redisTemplate.opsForValue().set(RedisKeyConstant.build(RedisKeyConstant.LOGIN_TOKEN, token), JSONUtil.toJsonStr(sysUser), 30, TimeUnit.DAYS);
-        redisTemplate.opsForValue().set(RedisKeyConstant.build(RedisKeyConstant.LOGIN_REFRESH_TOKEN, refreshToken), token, 35, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set(RedisKeyConstantEnum.build(RedisKeyConstantEnum.LOGIN_TOKEN, token), JSONUtil.toJsonStr(sysUser), 30, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set(RedisKeyConstantEnum.build(RedisKeyConstantEnum.LOGIN_REFRESH_TOKEN, refreshToken), token, 35, TimeUnit.DAYS);
 
         // 响应给客户端
         return new LoginVo(token, refreshToken);
@@ -89,8 +89,8 @@ public class PortalServiceImpl implements PortalService {
         if (loginTokenDto == null || StrUtil.isBlank(loginTokenDto.getToken()) || StrUtil.isBlank(loginTokenDto.getRefreshToken())) {
             PurePicksException.error(ResultCodeEnum.PARAMETER_INVALID_ERROR);
         }
-        String loginTokenRedisKey = RedisKeyConstant.build(RedisKeyConstant.LOGIN_TOKEN, loginTokenDto.getToken());
-        String loginRefreshTokenRedisKey = RedisKeyConstant.build(RedisKeyConstant.LOGIN_REFRESH_TOKEN, loginTokenDto.getRefreshToken());
+        String loginTokenRedisKey = RedisKeyConstantEnum.build(RedisKeyConstantEnum.LOGIN_TOKEN, loginTokenDto.getToken());
+        String loginRefreshTokenRedisKey = RedisKeyConstantEnum.build(RedisKeyConstantEnum.LOGIN_REFRESH_TOKEN, loginTokenDto.getRefreshToken());
         redisTemplate.delete(loginTokenRedisKey);
         redisTemplate.delete(loginRefreshTokenRedisKey);
     }

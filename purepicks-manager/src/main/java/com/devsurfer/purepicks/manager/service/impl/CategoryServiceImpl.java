@@ -14,6 +14,9 @@ import com.devsurfer.purepicks.model.dto.category.CategoryInsertDto;
 import com.devsurfer.purepicks.model.dto.category.CategoryQueryDto;
 import com.devsurfer.purepicks.model.dto.category.CategoryUpdateDto;
 import com.devsurfer.purepicks.model.entity.category.Category;
+import com.devsurfer.purepicks.model.enums.redis.RedisKeyConstantEnum;
+import com.devsurfer.purepicks.model.event.DeleteCategoryEvent;
+import com.devsurfer.purepicks.model.event.UpdateCategoryEvent;
 import com.devsurfer.purepicks.model.result.ResultCodeEnum;
 import com.devsurfer.purepicks.model.vo.category.CategoryExcelVo;
 import com.devsurfer.purepicks.model.vo.category.CategoryVo;
@@ -21,6 +24,8 @@ import com.devsurfer.purepicks.service.handle.PurePicksException;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,18 +43,30 @@ import java.util.List;
  * date 2025/1/19 23:46
  */
 @Service
-@AllArgsConstructor
 @Slf4j
+@AllArgsConstructor
+@SuppressWarnings("all")
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryMapper categoryMapper;
 
+    private final RedisTemplate<String, Object> redisTemplate;
+
+    private final ApplicationEventPublisher publisher;
+
     @Override
     public List<CategoryVo> findCategoryList(CategoryQueryDto categoryQueryDto) {
+        List<CategoryVo> cacheCategoryList = (List<CategoryVo>) redisTemplate.opsForValue().get(RedisKeyConstantEnum.MANAGER_CATEGORY_TREE.getKey());
+        if (cacheCategoryList != null && !cacheCategoryList.isEmpty()) {
+            return cacheCategoryList;
+        }
         List<Category> categoryList = categoryMapper.findCategoryList(categoryQueryDto);
         if (CollectionUtil.isEmpty(categoryList)) return Collections.emptyList();
-        return CategoryHelper.buildTree(BeanUtil.copyToList(categoryList, CategoryVo.class));
+        List<CategoryVo> categoryVos = CategoryHelper.buildTree(BeanUtil.copyToList(categoryList, CategoryVo.class));
+        publisher.publishEvent(new UpdateCategoryEvent(categoryVos));
+        return categoryVos;
     }
+
 
     @Override
     public void addCategory(CategoryInsertDto categoryInsertDto) {
@@ -58,6 +75,7 @@ public class CategoryServiceImpl implements CategoryService {
             PurePicksException.error(ResultCodeEnum.CATEGORY_NAME_EXISTS_ERROR);
         }
         categoryMapper.insertCategory(BeanUtil.copyProperties(categoryInsertDto, Category.class));
+        publisher.publishEvent(new DeleteCategoryEvent());
     }
 
     @Override
@@ -67,6 +85,7 @@ public class CategoryServiceImpl implements CategoryService {
             PurePicksException.error(ResultCodeEnum.CATEGORY_NAME_EXISTS_ERROR);
         }
         categoryMapper.updateCategory(BeanUtil.copyProperties(categoryUpdateDto, Category.class));
+        publisher.publishEvent(new DeleteCategoryEvent());
     }
 
     @Override
@@ -76,6 +95,7 @@ public class CategoryServiceImpl implements CategoryService {
             PurePicksException.error(ResultCodeEnum.CATEGORY_DELETE_ERROR);
         }
         categoryMapper.deleteById(categoryDeleteDto.getCategoryId());
+        publisher.publishEvent(new DeleteCategoryEvent());
     }
 
     @Override
@@ -108,6 +128,7 @@ public class CategoryServiceImpl implements CategoryService {
     public void importExcel(MultipartFile excelFile) {
         try {
             EasyExcel.read(excelFile.getInputStream(), CategoryExcelVo.class, new ReadCategoryListener(categoryMapper, categoryMapper.findCategoryList(null))).doReadAll();
+            publisher.publishEvent(new DeleteCategoryEvent());
         } catch (IOException e) {
             PurePicksException.error(ResultCodeEnum.EXCEL_FILE_EXPORT_ERROR);
         }

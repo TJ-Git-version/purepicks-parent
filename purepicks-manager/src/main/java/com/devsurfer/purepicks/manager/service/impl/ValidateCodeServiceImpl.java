@@ -3,7 +3,7 @@ package com.devsurfer.purepicks.manager.service.impl;
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
 import com.devsurfer.purepicks.manager.service.ValidateCodeService;
-import com.devsurfer.purepicks.model.enums.redis.RedisKeyConstant;
+import com.devsurfer.purepicks.model.enums.redis.RedisKeyConstantEnum;
 import com.devsurfer.purepicks.model.vo.login.ValidateCodeVo;
 import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import static com.devsurfer.purepicks.model.enums.redis.RedisKeyConstant.LOGIN_VALIDATE_CODE;
+import static com.devsurfer.purepicks.model.enums.redis.RedisKeyConstantEnum.LOGIN_VALIDATE_CODE;
 
 /**
  * @author Dev Surfer
@@ -40,7 +40,7 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
         String codeKey = UUID.randomUUID().toString().replace("-", "");
 
         // 将验证码值存储到redis中
-        redisTemplate.opsForValue().set(RedisKeyConstant.build(LOGIN_VALIDATE_CODE, codeKey), codeValue, 5, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(RedisKeyConstantEnum.build(LOGIN_VALIDATE_CODE, codeKey), codeValue, 5, TimeUnit.MINUTES);
 
         return new ValidateCodeVo(codeKey, "data:image/png;base64," + imageBase64);
     }

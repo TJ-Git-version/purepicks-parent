@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  */
 @Data
 @Tag(name = "分类管理响应实体", description = "分类管理响应实体")
-public class CategoryVo {
+public class CategoryVo implements Serializable {
 
     @Schema(description = "主键ID")
     private Long id;

@@ -13,9 +13,6 @@ import java.util.List;
 
 /**
  * @author Dev Surfer
- * @version 1.0.0
- * date 2025/3/13 22:12
- * description TODO
  */
 @Tag(name = "分类接口管理")
 @RestController

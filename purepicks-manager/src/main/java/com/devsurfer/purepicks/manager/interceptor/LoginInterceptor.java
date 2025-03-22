@@ -2,7 +2,7 @@ package com.devsurfer.purepicks.manager.interceptor;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import com.devsurfer.purepicks.model.enums.redis.RedisKeyConstant;
+import com.devsurfer.purepicks.model.enums.redis.RedisKeyConstantEnum;
 import com.devsurfer.purepicks.model.result.ResultCodeEnum;
 import com.devsurfer.purepicks.model.result.ResultUtil;
 import com.devsurfer.purepicks.model.vo.login.LoginUserInfoVo;
@@ -22,8 +22,8 @@ import java.io.PrintWriter;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-import static com.devsurfer.purepicks.model.enums.redis.RedisKeyConstant.LOGIN_REFRESH_TOKEN;
-import static com.devsurfer.purepicks.model.enums.redis.RedisKeyConstant.LOGIN_TOKEN;
+import static com.devsurfer.purepicks.model.enums.redis.RedisKeyConstantEnum.LOGIN_REFRESH_TOKEN;
+import static com.devsurfer.purepicks.model.enums.redis.RedisKeyConstantEnum.LOGIN_TOKEN;
 
 /**
  * @author Dev Surfer
@@ -62,7 +62,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
 
         // 校验token是否失效
-        String userInfo = (String) redisTemplate.opsForValue().get(RedisKeyConstant.build(LOGIN_TOKEN, token));
+        String userInfo = (String) redisTemplate.opsForValue().get(RedisKeyConstantEnum.build(LOGIN_TOKEN, token));
         // 校验用户信息是否为空
         if (StrUtil.isBlank(userInfo)) {
             responseNotLogin(response);
@@ -72,11 +72,11 @@ public class LoginInterceptor implements HandlerInterceptor {
         AuthContextUtil.set(JSONUtil.toBean(userInfo, LoginUserInfoVo.class));
 
         // 获取刷新token令牌
-        String refreshTokenValue = (String) redisTemplate.opsForValue().get(RedisKeyConstant.build(LOGIN_REFRESH_TOKEN, refreshToken));
+        String refreshTokenValue = (String) redisTemplate.opsForValue().get(RedisKeyConstantEnum.build(LOGIN_REFRESH_TOKEN, refreshToken));
         // 校验刷新token是否合法,合法真刷新当前用户token失效,更新为30分钟
         if (StrUtil.isNotBlank(refreshTokenValue) && Objects.equals(refreshTokenValue, token)) {
-            redisTemplate.expire(RedisKeyConstant.build(LOGIN_TOKEN, token), 30, TimeUnit.DAYS);
-            redisTemplate.expire(RedisKeyConstant.build(LOGIN_REFRESH_TOKEN, refreshToken), 35, TimeUnit.DAYS);
+            redisTemplate.expire(RedisKeyConstantEnum.build(LOGIN_TOKEN, token), 30, TimeUnit.DAYS);
+            redisTemplate.expire(RedisKeyConstantEnum.build(LOGIN_REFRESH_TOKEN, refreshToken), 35, TimeUnit.DAYS);
         }
         // 放行
         return true;

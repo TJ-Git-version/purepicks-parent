@@ -12,16 +12,17 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum RedisKeyConstant {
+public enum RedisKeyConstantEnum {
 
     LOGIN_TOKEN("user:login:token:{}"),
     LOGIN_REFRESH_TOKEN("user:login:refreshToken:{}"),
     LOGIN_VALIDATE_CODE("user:login:validateCode:{}"),
-    APPLET_CATEGORY_ONE("applet:category:one");
+    APPLET_CATEGORY_TREE("applet:category:tree"),
+    MANAGER_CATEGORY_TREE("manager:category:tree");
 
     private final String key;
 
-    public static String build(RedisKeyConstant redisKeyConstant, String keySuffix) {
+    public static String build(RedisKeyConstantEnum redisKeyConstant, String keySuffix) {
         return StrUtil.format(redisKeyConstant.getKey(), keySuffix);
     }
 
