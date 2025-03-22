@@ -7,6 +7,7 @@ import com.devsurfer.purepicks.model.event.UpdateCategoryEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
@@ -24,6 +25,7 @@ public class CategoryEventListener {
         this.redisTemplate = redisTemplate;
     }
 
+    @Async
     @EventListener(UpdateCategoryEvent.class)
     public void updateCategoryEvent(UpdateCategoryEvent updateCategoryEvent) {
         if (updateCategoryEvent.getCategoryList() == null || updateCategoryEvent.getCategoryList().isEmpty()) {
@@ -33,6 +35,7 @@ public class CategoryEventListener {
         redisTemplate.opsForValue().set(RedisKeyConstantEnum.MANAGER_CATEGORY_TREE.getKey(), updateCategoryEvent.getCategoryList(), 7, TimeUnit.DAYS);
     }
 
+    @Async
     @EventListener(DeleteCategoryEvent.class)
     public void deleteCategoryEvent(DeleteCategoryEvent deleteCategoryEvent) {
         redisTemplate.delete(RedisKeyConstantEnum.MANAGER_CATEGORY_TREE.getKey());

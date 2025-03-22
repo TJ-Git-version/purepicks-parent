@@ -56,3 +56,18 @@ purepicks:
     accessKey: YldujUvxicrZOHSOg1Vs
     secretKey: d5oqQCL2SPCpwGacuRSmkdxzN4rBR6MApdNhRd5x
     bucket: purepicks-manager-bucket
+
+thread:
+  core:
+    cpu-properties:
+      core-pool-size: 0
+      max-pool-size: 0
+      queue-capacity: 0
+      keep-alive-seconds: 0
+      thread-name-prefix: "Cpu-Task-"
+    io-properties:
+      core-pool-size: 0
+      max-pool-size: 0
+      queue-capacity: 0
+      keep-alive-seconds: 0
+      thread-name-prefix: "Io-Task-"
