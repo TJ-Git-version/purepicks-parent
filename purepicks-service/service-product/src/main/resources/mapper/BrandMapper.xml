@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devsurfer.purepicks.product.mapper.BrandMapper">
+
+    <resultMap id="BaseResultMap" type="com.devsurfer.purepicks.model.entity.brand.Brand">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="logo" column="logo" jdbcType="VARCHAR"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,`name`,`logo`,
+        `sort`,`create_time`,`update_time`,
+        `is_deleted`
+    </sql>
+
+    <select id="findBrandAll" resultType="com.devsurfer.purepicks.model.vo.brand.BrandVo">
+        select <include refid="Base_Column_List"/>
+        from `brand`
+        where is_deleted = 1;
+    </select>
+
+</mapper>

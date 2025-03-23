@@ -17,7 +17,10 @@ public enum RedisKeyConstantEnum {
     LOGIN_TOKEN("user:login:token:{}"),
     LOGIN_REFRESH_TOKEN("user:login:refreshToken:{}"),
     LOGIN_VALIDATE_CODE("user:login:validateCode:{}"),
+
     APPLET_CATEGORY_TREE("applet:category:tree"),
+    APPLET_CATEGORY_TOP("applet:category:top"),
+
     MANAGER_CATEGORY_TREE("manager:category:tree");
 
     private final String key;

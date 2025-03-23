@@ -36,8 +36,9 @@ public class Knife4jConfig {
     @Bean
     public GroupedOpenApi webApi() {
         return GroupedOpenApi.builder()
-                .group("web-api")
+                .group("api-app")
                 .pathsToMatch("/api/**")
+                .packagesToScan("com.devsurfer.purepicks.product.controller") // 指定handler处理器路径
                 .build();
     }
 

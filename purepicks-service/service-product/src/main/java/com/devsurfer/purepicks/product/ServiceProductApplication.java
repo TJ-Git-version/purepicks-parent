@@ -20,6 +20,7 @@ public class ServiceProductApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ServiceProductApplication.class, args);
+        System.out.println("http://localhost:8100/doc.html");
     }
 
 }

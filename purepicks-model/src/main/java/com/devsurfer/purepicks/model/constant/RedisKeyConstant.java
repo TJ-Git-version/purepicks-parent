@@ -11,5 +11,7 @@ public class RedisKeyConstant {
     public static final String APPLET_CATEGORY_PREFIX = "applet:category";
     public static final String APPLET_CATEGORY_KEY = "'one'";
 
+    public static final String APPLET_BRAND_PREFIX = "applet:brand";
+    public static final String APPLET_BRAND_KEY = "'list'";
 
 }

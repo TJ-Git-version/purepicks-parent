@@ -19,14 +19,42 @@
         <result property="stockNum" column="stock_num"/>
     </resultMap>
 
-    <sql id="product_sku_column">
+    <resultMap id="productMap" type="com.devsurfer.purepicks.model.vo.h5.Product">
+        <id property="id" column="id"/>
+        <result property="name" column="product_name"/>
+        <result property="brandId" column="brand_id"/>
+        <result property="brandName" column="brand_name"/>
+        <result property="sliderUrls" column="carousel_url"/>
+        <result property="category1Id" column="category_id1"/>
+        <result property="category2Id" column="category_id2"/>
+        <result property="category3Id" column="category_id3"/>
+        <result property="category1Name" column="category_id1_name"/>
+        <result property="category2Name" column="category_id2_name"/>
+        <result property="category3Name" column="category_id3_name"/>
+        <result property="unitName" column="unit_name"/>
+        <result property="specValue" column="product_spec_info"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="createUserName" column="review_user_id"/>
+        <result property="reviewUserId" column="review_time"/>
+        <result property="auditStatus" column="review_status"/>
+        <result property="auditMessage" column="review_info"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="product_sku_list_column">
         ps.`id`, ps.`product_id`, ps.`code`, ps.`name`, ps.`thumb_image`, ps.`sale_price`, ps.`sale_num`,
         ps.`market_price`, ps.`cost_price`, ps.`spec_name`, ps.`weight`, ps.`volume`, ps.`status`, ps.`stock_num`
     </sql>
 
+    <sql id="product_sku_column">
+        `id`, `product_id`, `code`, `name`, `thumb_image`, `sale_price`, `sale_num`,
+        `market_price`, `cost_price`, `spec_name`, `weight`, `volume`, `status`, `stock_num`
+    </sql>
+
     <select id="findProductSkuList" resultMap="productSkuVoMap">
         select
-        <include refid="product_sku_column"/>
+        <include refid="product_sku_list_column"/>
         from `product_sku` ps
         inner join product p on p.id = ps.product_id
         <where>
@@ -37,5 +65,107 @@
         </where>
         order by ps.`sale_num` desc, ps.`create_time` desc
         limit 20
+    </select>
+
+    <select id="findProductSkuPage" resultMap="productSkuVoMap">
+        select
+        <include refid="product_sku_list_column"/>
+        from `product_sku` ps
+        inner join product p on p.id = ps.product_id
+        <where>
+            ps.`status` = 1
+            and p.`review_status` = 1
+            and p.`is_deleted` = 1
+            and ps.`is_deleted` = 1
+            <if test="keyword != null and keyword != ''">
+                and (ps.`name` like concat("%", #{keyword}, "%") or
+                p.`product_name` like concat("%", #{keyword}, "%"))
+            </if>
+            <if test="brandId != null and brandId > 0">
+                and p.`brand_id` = #{brandId}
+            </if>
+            <if test="category1Id != null and category1Id > 0">
+                and p.`category_id1` = #{category1Id}
+            </if>
+            <if test="category2Id != null and category2Id > 0">
+                and p.`category_id2` = #{category2Id}
+            </if>
+            <if test="category3Id != null and category3Id > 0">
+                and p.`category_id3` = #{category3Id}
+            </if>
+        </where>
+        <trim prefix="order by" prefixOverrides=",">
+            <choose>
+                <when test="order != null and order == 1">
+                    ps.`sale_num` desc
+                </when>
+                <when test="order != null and order == 2">
+                    ,ps.`sale_price` asc
+                </when>
+                <when test="order != null and order == 3">
+                    ,ps.`sale_price` desc
+                </when>
+                <otherwise>
+                    ,ps.`sale_num` desc, ps.`create_time` desc
+                </otherwise>
+            </choose>
+        </trim>
+    </select>
+
+    <select id="getProductSkuById" resultMap="productSkuVoMap">
+        select
+        <include refid="product_sku_column"/>
+        from `product_sku`
+        where `status` = 1
+        and `is_deleted` = 1
+        and `id` = #{skuId}
+    </select>
+
+    <select id="findProductById" resultType="com.devsurfer.purepicks.model.vo.h5.Product">
+        select p.`id`                as id,
+               p.`product_name`      as productName,
+               p.`brand_id`          as brandId,
+               b.`name`              as brandName,
+               p.`carousel_url`      as sliderUrls,
+               p.`category_id1`      as category1Id,
+               p.`category_id2`      as category2Id,
+               p.`category_id3`      as category3Id,
+               c1.`name`             as category1Name,
+               c2.`name`             as category2Name,
+               c3.`name`             as category3Name,
+               p.`unit_name`         as unitName,
+               p.`status`            as status,
+               p.`product_spec_id`   as productSpecId,
+               p.`product_spec_info` as specValue,
+               p.`create_user_id`    as createUserId,
+               p.`review_user_id`    as createUserName,
+               p.`review_status`     as auditStatus,
+               p.`review_info`       as auditMessage,
+               p.`create_time`       as createTime,
+               p.`update_time`       as updateTime
+        from `product` p
+                 left join `brand` b on b.id = p.brand_id
+                 left join `category` c1 on c1.id = p.category_id1
+                 left join `category` c2 on c2.id = p.category_id2
+                 left join `category` c3 on c3.id = p.category_id3
+        where p.id = #{productId}
+    </select>
+
+    <select id="findProductSpecById" resultType="com.devsurfer.purepicks.model.vo.product.ProductSpecVo">
+        select `id`          as id,
+               `spec_name`   as specName,
+               `spec_value`  as specValue,
+               `create_time` as createTime,
+               `update_time` as updateTime
+        from `product_spec`
+        where `id` = #{specId}
+    </select>
+
+    <select id="findProductDetailByProductId"
+            resultType="com.devsurfer.purepicks.model.vo.product.ProductDetailVo">
+        select `id`        as id,
+               `image_url` as imageUrl
+        from `product_detail`
+        where `product_id` = #{productId}
     </select>
 </mapper>

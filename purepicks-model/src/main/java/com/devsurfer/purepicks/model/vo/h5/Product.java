@@ -1,31 +1,22 @@
-package com.devsurfer.purepicks.model.vo.product;
+package com.devsurfer.purepicks.model.vo.h5;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author Dev Surfer
- * @version 1.0.0
- * date 2025/2/16 16:03
- * description TODO
  */
-@Tag(name = "商品响应实体", description = "商品响应实体")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class ProductVo {
+public class Product implements Serializable {
 
     @Schema(description = "商品id")
     private Long id;
 
     @Schema(description = "商品名称")
-    private String productName;
+    private String name;
 
     @Schema(description = "品牌id")
     private Long brandId;
@@ -34,25 +25,25 @@ public class ProductVo {
     private String brandName;
 
     @Schema(description = "轮播图")
-    private String carouselUrl;
+    private String sliderUrls;
 
     @Schema(description = "一级分类")
-    private Long categoryId1;
+    private Long category1Id;
 
     @Schema(description = "二级分类")
-    private Long categoryId2;
+    private Long category2Id;
 
     @Schema(description = "三级分类")
-    private Long categoryId3;
+    private Long category3Id;
 
     @Schema(description = "一级分类名称")
-    private String categoryName1;
+    private String category1Name;
 
     @Schema(description = "二级分类名称")
-    private String categoryName2;
+    private String category2Name;
 
     @Schema(description = "三级分类名称")
-    private String categoryName3;
+    private String category3Name;
 
     @Schema(description = "计量单位")
     private String unitName;
@@ -61,7 +52,7 @@ public class ProductVo {
     private Long productSpecId;
 
     @Schema(description = "商品规格信息")
-    private String productSpecInfo;
+    private String specValue;
 
     @Schema(description = "创建人id")
     private Long createUserId;
@@ -69,28 +60,17 @@ public class ProductVo {
     @Schema(description = "创建人名称")
     private String createUserName;
 
-    @Schema(description = "审核人id")
-    private Long reviewUserId;
-
-    @Schema(description = "审核人名称")
-    private String reviewUserName;
-
     @Schema(description = "审核状态：0-未审核，1-通过，2-驳回")
-    private Integer reviewStatus;
+    private Integer auditStatus;
 
     @Schema(description = "审核信息")
-    private String reviewInfo;
-
-    @Schema(description = "商品SKU信息")
-    private List<ProductSkuVo> productSkuList;
-
-    @Schema(description = "商品详情信息")
-    private ProductDetailVo productDetail;
+    private String auditMessage;
 
     @Schema(description = "创建时间")
     private Date createTime;
 
     @Schema(description = "更新时间")
     private Date updateTime;
+
 
 }

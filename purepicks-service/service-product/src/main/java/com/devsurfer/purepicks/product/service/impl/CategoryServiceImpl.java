@@ -52,7 +52,13 @@ public class CategoryServiceImpl implements CategoryService {
      */
     @Override
     public List<CategoryVo> findOneCategory() {
-        return categoryMapper.findOneCategory();
+        String cacheCategoryList = stringRedisTemplate.opsForValue().get(RedisKeyConstantEnum.APPLET_CATEGORY_TOP.getKey());
+        if (StrUtil.isNotBlank(cacheCategoryList)) {
+            return JSONUtil.toList(cacheCategoryList, CategoryVo.class);
+        }
+        List<CategoryVo> oneCategory = categoryMapper.findOneCategory();
+        stringRedisTemplate.opsForValue().set(RedisKeyConstantEnum.APPLET_CATEGORY_TOP.getKey(), JSONUtil.toJsonStr(oneCategory), 7, TimeUnit.DAYS);
+        return oneCategory;
     }
 
     private void buildTree(CategoryVo parentNode, List<CategoryVo> allCategoryList) {

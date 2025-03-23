@@ -57,7 +57,8 @@ public enum ResultCodeEnum {
     BRAND_BOUND_CATEGORY_ERROR(362, "{}的品牌已关联分类，请先移除品牌和分类关系"),
 
     /* 商品规格 371~380*/
-    PRODUCT_SPEC_NAME_EXIST_ERROR(371, "商品规格名称已存在，请重新输入")
+    PRODUCT_SPEC_NAME_EXIST_ERROR(371, "商品规格名称已存在，请重新输入"),
+    PRODUCT_SKU_EXIST_ERROR(372, "当前商品已下架")
     ;
 
     private final Integer code;

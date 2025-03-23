@@ -39,6 +39,8 @@ public class CategoryEventListener {
     @EventListener(DeleteCategoryEvent.class)
     public void deleteCategoryEvent(DeleteCategoryEvent deleteCategoryEvent) {
         redisTemplate.delete(RedisKeyConstantEnum.MANAGER_CATEGORY_TREE.getKey());
+        redisTemplate.delete(RedisKeyConstantEnum.APPLET_CATEGORY_TREE.getKey());
+        redisTemplate.delete(RedisKeyConstantEnum.APPLET_CATEGORY_TOP.getKey());
     }
 
 }

@@ -19,6 +19,11 @@ public class ThreadCoreProperties {
     @Schema(description = "io线程池配置类")
     private IoProperties ioProperties;
 
+    public ThreadCoreProperties() {
+        this.cpuProperties = new CpuProperties();
+        this.ioProperties = new IoProperties();
+    }
+
     @Data
     public static class CpuProperties {
 
