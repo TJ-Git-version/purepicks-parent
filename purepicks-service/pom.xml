@@ -12,6 +12,7 @@
 
     <modules>
         <module>service-product</module>
+        <module>service-user</module>
     </modules>
 
     <groupId>com.devsurfer.purepicks.service</groupId>

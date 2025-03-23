@@ -31,14 +31,27 @@ public class Knife4jConfig {
     }
 
     /**
-     * H5端接口文档
+     * H5端-商品服务接口文档
      */
     @Bean
     public GroupedOpenApi webApi() {
         return GroupedOpenApi.builder()
-                .group("api-app")
+                .group("api-product")
                 .pathsToMatch("/api/**")
                 .packagesToScan("com.devsurfer.purepicks.product.controller") // 指定handler处理器路径
+                .build();
+    }
+
+
+    /**
+     * H5端-用户服务接口文档
+     */
+    @Bean
+    public GroupedOpenApi userApi() {
+        return GroupedOpenApi.builder()
+                .group("api-user")
+                .pathsToMatch("/api/**")
+                .packagesToScan("com.devsurfer.purepicks.user.controller") // 指定handler处理器路径
                 .build();
     }
 

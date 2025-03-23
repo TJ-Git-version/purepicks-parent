@@ -19,7 +19,8 @@ public enum ResultCodeEnum {
     PARAMETER_INVALID_ERROR(202, "参数非法"),
     FILE_SIZE_TOO_LARGE_ERROR(203, "你上传的文件太大啦,我承受不住,请重新上传哦"),
     EXCEL_FILE_EXPORT_ERROR(204, "导出Excel失败"),
-    EXCEL_FILE_IMPORT_ERROR(204, "导入Excel失败"),
+    EXCEL_FILE_IMPORT_ERROR(205, "导入Excel失败"),
+    LOGIN_AUTH(208, "登录已过期, 请重新登录"),
 
     /* 用户模块 260-300*/
     USER_USERNAME_NOT_EXITS_ERROR(260, "用户名不存在"),
@@ -58,7 +59,12 @@ public enum ResultCodeEnum {
 
     /* 商品规格 371~380*/
     PRODUCT_SPEC_NAME_EXIST_ERROR(371, "商品规格名称已存在，请重新输入"),
-    PRODUCT_SKU_EXIST_ERROR(372, "当前商品已下架")
+    PRODUCT_SKU_EXIST_ERROR(372, "当前商品已下架"),
+
+    /* H5端-状态码 381~400 */
+    PHONE_CODE_VERIFICATION_ERROR(381, "当前手机号验证码已发送, 请在规定时间内填写验证码"),
+    VERIFICATION_CODE_EMPTY_ERROR(382, "验证码已失效, 请重新获取"),
+    VERIFICATION_CODE_ERROR(383, "验证码错误, 请重新输入"),
     ;
 
     private final Integer code;

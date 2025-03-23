@@ -1,8 +1,9 @@
 server:
-  port: 8100
+  port: 8200
+
 spring:
   application:
-    name: service-product
+    name: service-user
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -33,6 +34,13 @@ spring:
       leak-detection-threshold: 2000
       # 是否使用数据库的连接验证机制，避免长时间没有使用连接而被数据库回收
       validation-timeout: 5000
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.37.160:8848
+    sentinel:
+      transport:
+        dashboard: 192.168.37.160:8858
   data:
     redis:
       host: 127.0.0.1
@@ -44,15 +52,6 @@ spring:
     multipart:
       max-file-size: 50MB
       max-request-size: 100MB
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 192.168.37.160:8848
-        username: nacos
-        password: nacos
-    sentinel:
-      transport:
-        dashboard: 192.168.37.160:8858
 
 knife4j:
   insight:
@@ -72,3 +71,11 @@ purepicks:
     accessKey: YldujUvxicrZOHSOg1Vs
     secretKey: d5oqQCL2SPCpwGacuRSmkdxzN4rBR6MApdNhRd5x
     bucket: purepicks-manager-bucket
+
+sms:
+  url: https://smssend.shumaidata.com
+  path: /sms/send
+  templateId: x
+  appKey: x
+  appSecret: x
+  appCode: x

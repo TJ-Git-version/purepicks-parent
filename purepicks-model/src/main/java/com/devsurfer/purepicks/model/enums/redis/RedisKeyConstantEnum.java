@@ -20,8 +20,12 @@ public enum RedisKeyConstantEnum {
 
     APPLET_CATEGORY_TREE("applet:category:tree"),
     APPLET_CATEGORY_TOP("applet:category:top"),
+    APPLET_LOGIN_TOKEN("applet:login:token:{}"),
 
-    MANAGER_CATEGORY_TREE("manager:category:tree");
+    MANAGER_CATEGORY_TREE("manager:category:tree"),
+
+    PHONE_VALIDATE_CODE("phone:code:validateCode:{}"),
+    ;
 
     private final String key;
 

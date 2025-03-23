@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devsurfer.purepicks.user.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.devsurfer.purepicks.model.entity.user.UserInfo">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="openId" column="open_id" jdbcType="VARCHAR"/>
+            <result property="unionId" column="union_id" jdbcType="VARCHAR"/>
+            <result property="username" column="username" jdbcType="VARCHAR"/>
+            <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+            <result property="sex" column="sex" jdbcType="TINYINT"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="lastLoginIp" column="last_login_ip" jdbcType="VARCHAR"/>
+            <result property="lastLoginTime" column="last_login_time" jdbcType="TIMESTAMP"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,open_id,union_id,
+        username,nickname,password,
+        avatar,sex,phone,
+        status,last_login_ip,last_login_time,
+        create_time,update_time,is_deleted
+    </sql>
+
+    <insert id="insertRegister">
+        insert into
+        `user_info`
+        (`username`,
+        <if test="nickname != null">
+            `nickname`,
+        </if>
+        `password`
+        )
+        values (
+        #{username},
+        <if test="nickname != null">
+            #{nickname},
+        </if>
+        #{password}
+        )
+    </insert>
+
+    <update id="loginAccountPassword">
+        update `user_info`
+        set `last_login_ip` = #{ipAddress},
+            `last_login_time` = now()
+        where `username` = #{loginDto.username}
+    </update>
+
+    <select id="selectCount" resultType="java.lang.Long">
+        select count(*)
+        from `user_info`
+        where ${column} = ${value}
+        and `is_deleted` = 1
+    </select>
+
+    <select id="selectOne" resultType="com.devsurfer.purepicks.model.entity.user.UserInfo">
+        select <include refid="Base_Column_List"/>
+        from `user_info`
+        where ${column} = ${value}
+        and `is_deleted` = 1
+    </select>
+</mapper>
