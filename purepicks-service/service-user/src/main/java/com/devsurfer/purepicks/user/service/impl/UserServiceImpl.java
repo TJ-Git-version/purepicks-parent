@@ -11,6 +11,7 @@ import com.devsurfer.purepicks.model.result.ResultCodeEnum;
 import com.devsurfer.purepicks.service.handle.PurePicksException;
 import com.devsurfer.purepicks.user.mapper.UserMapper;
 import com.devsurfer.purepicks.user.service.UserService;
+import com.devsurfer.purepicks.utils.AuthContextUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -96,11 +97,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserInfo getCurrentUserInfo(HttpServletRequest request) {
-        if (request == null || request.getHeader("token") == null) {
-            PurePicksException.error(ResultCodeEnum.LOGIN_AUTH);
-        }
-        String token = request.getHeader("token");
-        String userInfoJson = redisTemplate.opsForValue().get(RedisKeyConstantEnum.build(RedisKeyConstantEnum.APPLET_LOGIN_TOKEN, token));
-        return JSONUtil.toBean(userInfoJson, UserInfo.class);
+        // 优化一波, 从ThreadLocal中获取用户信息
+        //if (request == null || request.getHeader("token") == null) {
+        //    PurePicksException.error(ResultCodeEnum.LOGIN_AUTH);
+        //}
+        //String token = request.getHeader("token");
+        //String userInfoJson = redisTemplate.opsForValue().get(RedisKeyConstantEnum.build(RedisKeyConstantEnum.APPLET_LOGIN_TOKEN, token));
+        //return JSONUtil.toBean(userInfoJson, UserInfo.class);
+        return AuthContextUtil.getAppletUserInfo();
     }
 }

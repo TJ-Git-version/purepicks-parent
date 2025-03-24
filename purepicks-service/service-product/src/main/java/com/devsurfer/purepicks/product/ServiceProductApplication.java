@@ -1,5 +1,6 @@
 package com.devsurfer.purepicks.product;
 
+import com.devsurfer.purepicks.service.annotation.EnableUserWebMvcConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,6 +17,7 @@ import org.springframework.context.annotation.ComponentScan;
 @MapperScan(basePackages = "com.devsurfer.purepicks.product.mapper")
 @ComponentScan("com.devsurfer.purepicks")
 @EnableCaching
+@EnableUserWebMvcConfiguration
 public class ServiceProductApplication {
 
     public static void main(String[] args) {

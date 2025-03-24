@@ -1,5 +1,6 @@
 package com.devsurfer.purepicks.utils;
 
+import com.devsurfer.purepicks.model.entity.user.UserInfo;
 import com.devsurfer.purepicks.model.vo.login.LoginUserInfoVo;
 
 /**
@@ -11,7 +12,7 @@ import com.devsurfer.purepicks.model.vo.login.LoginUserInfoVo;
 public final class AuthContextUtil {
 
     // 存储当前线程用户信息
-    public static final ThreadLocal<LoginUserInfoVo> threadLocal = new ThreadLocal<>();
+    private static final ThreadLocal<LoginUserInfoVo> threadLocal = new ThreadLocal<>();
 
     /**
      * 设置线程信息
@@ -39,6 +40,33 @@ public final class AuthContextUtil {
      */
     public static void remove() {
         threadLocal.remove();
+    }
+
+    // --------------------------------H5端本地存储用户信息----------------------------------
+
+    private static final ThreadLocal<UserInfo> appletThreadLocal = new ThreadLocal<>();
+
+    public static void setAppletUserInfo(UserInfo userInfo) {
+        if (userInfo == null) {
+            return;
+        }
+        appletThreadLocal.set(userInfo);
+    }
+
+    public static UserInfo getAppletUserInfo() {
+        return appletThreadLocal.get();
+    }
+
+    public static Long getAppletUserId() {
+        UserInfo userInfo = appletThreadLocal.get();
+        if (userInfo == null) {
+            return null;
+        }
+        return userInfo.getId();
+    }
+
+    public static void removeAppletUserInfo() {
+        appletThreadLocal.remove();
     }
 
 }
