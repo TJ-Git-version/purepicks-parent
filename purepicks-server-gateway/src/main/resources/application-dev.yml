@@ -3,6 +3,11 @@ server:
 spring:
   application:
     name: purepicks-gateway
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 2
   cloud:
     nacos:
       discovery:
@@ -34,3 +39,5 @@ spring:
           uri: lb://service-user
           predicates:
             - Path=/*/user/**
+auth:
+  blackList: "/api/**/auth/**"
