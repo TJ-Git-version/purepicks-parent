@@ -67,3 +67,9 @@
     - Hutool
     - fastjson
     - gson
+
+## 服务端口占用
+
+| manager | gateway | product | user | cart |
+|:--------|:-------:|--------:|------|------|
+| 8000    |  8500   |    8100 | 8200 | 8300 |
