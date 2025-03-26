@@ -21,6 +21,7 @@ public enum RedisKeyConstantEnum {
     APPLET_CATEGORY_TREE("applet:category:tree"),
     APPLET_CATEGORY_TOP("applet:category:top"),
     APPLET_LOGIN_TOKEN("applet:login:token:{}"),
+    APPLET_CART_LIST("applet:cart:list:{}"),
 
     MANAGER_CATEGORY_TREE("manager:category:tree"),
 

@@ -35,7 +35,6 @@
         <result property="specValue" column="product_spec_info"/>
         <result property="createUserId" column="create_user_id"/>
         <result property="createUserName" column="review_user_id"/>
-        <result property="reviewUserId" column="review_time"/>
         <result property="auditStatus" column="review_status"/>
         <result property="auditMessage" column="review_info"/>
         <result property="createTime" column="create_time"/>

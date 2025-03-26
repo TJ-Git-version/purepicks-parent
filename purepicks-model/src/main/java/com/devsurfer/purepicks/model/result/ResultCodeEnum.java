@@ -60,6 +60,7 @@ public enum ResultCodeEnum {
     /* 商品规格 371~380*/
     PRODUCT_SPEC_NAME_EXIST_ERROR(371, "商品规格名称已存在，请重新输入"),
     PRODUCT_SKU_EXIST_ERROR(372, "当前商品已下架"),
+    PRODUCT_SKU_STOCK_ERROR(373, "当前商品库存量不足"),
 
     /* H5端-状态码 381~400 */
     PHONE_CODE_VERIFICATION_ERROR(381, "当前手机号验证码已发送, 请在规定时间内填写验证码"),

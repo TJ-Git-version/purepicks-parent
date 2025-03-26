@@ -1,8 +1,10 @@
 package com.devsurfer.purepicks.cart;
 
+import com.devsurfer.purepicks.service.annotation.EnableUserWebMvcConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -12,6 +14,8 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @ComponentScan("com.devsurfer.purepicks")
+@EnableFeignClients(basePackages = {"com.devsurfer.purepicks.feign.product"})
+@EnableUserWebMvcConfiguration
 public class ServiceCartApplication {
 
     public static void main(String[] args) {

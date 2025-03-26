@@ -43,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductVo findProductItemBySkuId(String skuId) {
+    public ProductVo findProductItemBySkuId(Long skuId) {
         ProductVo productVo = new ProductVo();
         ProductSkuVo productSkuVo = productMapper.getProductSkuById(skuId);
         if (productSkuVo == null || productSkuVo.getStatus() == 0) {
@@ -71,5 +71,14 @@ public class ProductServiceImpl implements ProductService {
             productVo.setSliderUrlList(JSONUtil.toList(product.getSliderUrls(), String.class));
         }
         return productVo;
+    }
+
+    @Override
+    public ProductSkuVo getBySkuId(Long skuId) {
+        ProductSkuVo productSkuVo = productMapper.getProductSkuById(skuId);
+        if (productSkuVo == null || productSkuVo.getStatus() == 0) {
+            PurePicksException.error(ResultCodeEnum.PRODUCT_SKU_EXIST_ERROR);
+        }
+        return productSkuVo;
     }
 }

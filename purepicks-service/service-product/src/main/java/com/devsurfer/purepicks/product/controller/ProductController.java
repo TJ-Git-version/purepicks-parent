@@ -39,7 +39,7 @@ public class ProductController {
     @Operation(summary = "获取商品详情信息", description = "获取商品详情信息")
     public ResultUtil<ProductVo> findProductItemBySkuId(
             @Parameter(name = "skuId", description = "商品skuId", required = true)
-            @PathVariable("skuId") String skuId) {
+            @PathVariable("skuId") Long skuId) {
         return ResultUtil.ok(productService.findProductItemBySkuId(skuId));
     }
 

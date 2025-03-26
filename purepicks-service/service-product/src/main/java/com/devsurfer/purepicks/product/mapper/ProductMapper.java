@@ -19,7 +19,7 @@ public interface ProductMapper {
 
     List<ProductSkuVo> findProductSkuPage(ProductSkuDto productSkuDto);
 
-    ProductSkuVo getProductSkuById(String skuId);
+    ProductSkuVo getProductSkuById(Long skuId);
 
     Product findProductById(Long productId);
 
