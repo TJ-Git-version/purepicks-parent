@@ -1,5 +1,6 @@
 package com.devsurfer.purepicks.user;
 
+import com.devsurfer.purepicks.service.annotation.EnableMinioConfig;
 import com.devsurfer.purepicks.service.annotation.EnableUserWebMvcConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +19,7 @@ import org.springframework.context.annotation.ComponentScan;
 @MapperScan("com.devsurfer.purepicks.user.mapper")
 @ComponentScan(basePackages = "com.devsurfer.purepicks")
 @EnableUserWebMvcConfiguration
+@EnableMinioConfig
 public class ServiceUserApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(ServiceUserApplication.class, args);

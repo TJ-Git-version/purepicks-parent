@@ -1,6 +1,7 @@
 package com.devsurfer.purepicks.manager;
 
 import com.devsurfer.purepicks.log.annotation.EnableLogAspect;
+import com.devsurfer.purepicks.service.annotation.EnableMinioConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,6 +23,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableLogAspect
 @EnableAsync
 @EnableCaching
+@EnableMinioConfig
 public class PurePicksManagerApplication {
 
     public static void main(String[] args) {
