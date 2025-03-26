@@ -1,0 +1,21 @@
+server:
+  port: 8300
+spring:
+  application:
+    name: service-cart
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.37.160:8848
+    sentinel:
+      transport:
+        dashboard: 192.168.37.160:8858
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 2
+
+knife4j:
+  insight:
+    enable: true
