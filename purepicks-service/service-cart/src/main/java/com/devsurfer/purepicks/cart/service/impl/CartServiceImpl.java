@@ -76,7 +76,7 @@ public class CartServiceImpl implements CartService {
             cartInfo.setSkuName(productSkuVo.getSkuName());
             cartInfo.setImgUrl(productSkuVo.getThumbImage());
             cartInfo.setUserId(userId);
-            cartInfo.setCartPrice(productSkuVo.getCostPrice());
+            cartInfo.setCartPrice(productSkuVo.getSalePrice());
             cartInfo.setIsChecked(1);
             cartInfo.setCreateTime(new Date());
             cartInfo.setUpdateTime(new Date());
@@ -148,5 +148,10 @@ public class CartServiceImpl implements CartService {
             cartInfo.setUpdateTime(new Date());
             redisTemplate.opsForHash().put(getRedisCartKey(AuthContextUtil.getAppletUserId()), String.valueOf(cartInfo.getSkuId()), cartInfo);
         });
+    }
+
+    @Override
+    public List<CartInfo> getAllChecked() {
+        return getCartInfoList().stream().filter(cartInfo -> cartInfo.getIsChecked() == 1).toList();
     }
 }

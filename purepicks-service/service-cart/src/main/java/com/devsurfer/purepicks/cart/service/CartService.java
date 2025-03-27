@@ -24,4 +24,6 @@ public interface CartService {
 
     void allCheckCart(Integer isChecked);
 
+    List<CartInfo> getAllChecked();
+
 }

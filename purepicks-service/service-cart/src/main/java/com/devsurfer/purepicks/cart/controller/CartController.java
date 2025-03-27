@@ -7,10 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,7 +44,7 @@ public class CartController {
     }
 
     @Operation(summary = "移除购物车选项")
-    @GetMapping("/auth/deleteCart/{skuId}")
+    @DeleteMapping("/auth/deleteCart/{skuId}")
     public ResultUtil<?> deleteCart(
             @Parameter(name = "skuId", description = "商品skuId")
             @PathVariable("skuId") Long skuId
@@ -83,6 +80,12 @@ public class CartController {
     ) {
         cartService.allCheckCart(isChecked);
         return ResultUtil.ok();
+    }
+
+    @Operation(summary = "获取选中的购物车")
+    @GetMapping("/auth/getAllChecked")
+    public ResultUtil<List<CartInfo>> getAllCheckedCartList() {
+        return ResultUtil.ok(cartService.getAllChecked());
     }
 
 }
