@@ -56,6 +56,18 @@ public class Knife4jConfig {
     }
 
     /**
+     * H5端-订单服务接口文档
+     */
+    @Bean
+    public GroupedOpenApi orderApi() {
+        return GroupedOpenApi.builder()
+                .group("api-order")
+                .pathsToMatch("/api/**")
+                .packagesToScan("com.devsurfer.purepicks.order.controller") // 指定handler处理器路径
+                .build();
+    }
+
+    /**
      * 自定义api基本信息
      */
     @Bean
