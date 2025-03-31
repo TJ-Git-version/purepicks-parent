@@ -35,4 +35,8 @@ public class OrderItem extends BaseEntity {
     @Schema(description = "商品Sku数量")
     private Integer skuNum;
 
+    public BigDecimal computerPrice() {
+        return skuPrice.multiply(BigDecimal.valueOf(skuNum));
+    }
+
 }
