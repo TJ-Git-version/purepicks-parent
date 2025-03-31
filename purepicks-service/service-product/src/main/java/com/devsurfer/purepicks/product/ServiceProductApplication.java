@@ -1,6 +1,7 @@
 package com.devsurfer.purepicks.product;
 
 import com.devsurfer.purepicks.service.annotation.EnableMinioConfig;
+import com.devsurfer.purepicks.service.annotation.EnableUserTokenFeignInterceptor;
 import com.devsurfer.purepicks.service.annotation.EnableUserWebMvcConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -22,6 +23,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableUserWebMvcConfiguration
 @EnableMinioConfig
 @EnableFeignClients(basePackages = {"com.devsurfer.purepicks.feign.product"})
+@EnableUserTokenFeignInterceptor
 public class ServiceProductApplication {
 
     public static void main(String[] args) {

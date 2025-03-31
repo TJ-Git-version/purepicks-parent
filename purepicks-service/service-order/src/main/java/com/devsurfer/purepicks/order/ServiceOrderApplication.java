@@ -1,5 +1,6 @@
 package com.devsurfer.purepicks.order;
 
+import com.devsurfer.purepicks.service.annotation.EnableUserTokenFeignInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -11,6 +12,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @SpringBootApplication
 @EnableFeignClients(basePackages = "com.devsurfer.purepicks.feign.cart")
+@EnableUserTokenFeignInterceptor
 public class ServiceOrderApplication {
 
     public static void main(String[] args) {
