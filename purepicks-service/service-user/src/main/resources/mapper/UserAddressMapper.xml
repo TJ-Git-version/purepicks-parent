@@ -34,5 +34,14 @@
         <include refid="Base_Column_List"/>
         from `user_address`
         where userId = #{userId}
+        and is_deleted = 1
+    </select>
+
+    <select id="getUserAddress" resultType="com.devsurfer.purepicks.model.entity.user.UserAddress">
+        select
+        <include refid="Base_Column_List"/>
+        from `user_address`
+        where id = #{userAddressId}
+        and is_deleted = 1
     </select>
 </mapper>

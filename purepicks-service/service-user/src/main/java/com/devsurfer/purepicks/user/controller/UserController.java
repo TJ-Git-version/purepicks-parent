@@ -46,4 +46,10 @@ public class UserController {
         return ResultUtil.ok(userService.getCurrentUserInfo(request));
     }
 
+    @Operation(summary = "判断用户是否收藏该商品", description = "判断用户是否收藏该商品")
+    @GetMapping("/isCollect/{skuId}")
+    public ResultUtil<Boolean> isCollect(@PathVariable Long skuId) {
+        return ResultUtil.ok(userService.isCollect(skuId));
+    }
+
 }

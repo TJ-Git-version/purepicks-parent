@@ -106,4 +106,9 @@ public class UserServiceImpl implements UserService {
         //return JSONUtil.toBean(userInfoJson, UserInfo.class);
         return AuthContextUtil.getAppletUserInfo();
     }
+
+    @Override
+    public Boolean isCollect(Long skuId) {
+        return true;
+    }
 }

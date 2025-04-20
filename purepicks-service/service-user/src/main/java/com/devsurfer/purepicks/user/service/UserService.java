@@ -19,4 +19,6 @@ public interface UserService {
 
     UserInfo getCurrentUserInfo(HttpServletRequest request);
 
+    Boolean isCollect(Long skuId);
+
 }
