@@ -8,7 +8,7 @@ import com.alibaba.excel.annotation.write.style.ContentRowHeight;
 import com.alibaba.excel.annotation.write.style.ContentStyle;
 import com.alibaba.excel.enums.BooleanEnum;
 import com.alibaba.excel.enums.poi.HorizontalAlignmentEnum;
-import com.devsurfer.purepicks.model.enums.category.CategoryStatus;
+import com.devsurfer.purepicks.model.enums.annocation.category.CategoryStatus;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Data;

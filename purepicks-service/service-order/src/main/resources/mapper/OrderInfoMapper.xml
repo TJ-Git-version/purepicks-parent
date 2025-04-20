@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devsurfer.purepicks.order.mapper.OrderInfoMapper">
+
+    <resultMap id="orderInfoVoMap" type="com.devsurfer.purepicks.model.vo.order.OrderInfoVo">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickname" column="order_no"/>
+        <result property="orderNo" column="user_id"/>
+        <result property="couponId" column="coupon_id"/>
+        <result property="totalAmount" column="total_amount"/>
+        <result property="originalTotalAmount" column="original_total_amount"/>
+        <result property="freightFee" column="freight_fee"/>
+        <result property="payType" column="pay_type"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="receiverName" column="receiver_name"/>
+        <result property="receiverPhone" column="receiver_phone"/>
+        <result property="receiverPostCode" column="receiver_post_code"/>
+        <result property="receiverProvince" column="receiver_province"/>
+        <result property="receiverCity" column="receiver_city"/>
+        <result property="receiverDistrict" column="receiver_district"/>
+        <result property="receiverAddress" column="receiver_address"/>
+        <result property="deliveryTime" column="delivery_time"/>
+        <result property="receiveTime" column="receive_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into order_info(user_id, nick_name, order_no, coupon_id, total_amount, coupon_amount,
+                               original_total_amount, freight_fee, pay_type, order_status, receiver_name,
+                               receiver_phone, receiver_post_code, receiver_province, receiver_city,
+                               receiver_district, receiver_address, delivery_time,
+                               receive_time, remark)
+        values (#{userId}, #{nickname}, #{orderNo}, #{couponId}, #{totalAmount}, #{couponAmount},
+                #{originalTotalAmount}, #{freightFee}, #{payType}, #{orderStatus}, #{receiverName},
+                #{receiverPhone}, #{receiverPostCode}, #{receiverProvince}, #{receiverCity},
+                #{receiverDistrict}, #{receiverAddress}, #{deliveryTime}, #{receiveTime}, #{remark})
+    </insert>
+
+    <insert id="insertOrderItem">
+        insert into order_item(order_id, sku_id, sku_name, thumb_img, sku_price, sku_num)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{orderId}, #{item.skuId}, #{item.skuName}, #{item.thumbImg}, #{item.skuPrice}, #{item.skuNum})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrderLog">
+        insert into order_log(order_id, operate_user, process_status, note)
+        values (#{orderId}, #{operateUser}, #{processStatus}, #{note})
+    </insert>
+
+    <select id="findOrderInfoById" resultMap="orderInfoVoMap">
+        select id,
+               user_id,
+               nick_name,
+               order_no,
+               coupon_id,
+               total_amount,
+               coupon_amount,
+               original_total_amount,
+               freight_fee,
+               pay_type,
+               order_status,
+               receiver_name,
+               receiver_phone,
+               receiver_post_code,
+               receiver_province,
+               receiver_city,
+               receiver_district,
+               receiver_address,
+               delivery_time,
+               receive_time,
+               remark
+        from order_info
+        where id = #{id}
+          and is_deleted = 1
+    </select>
+
+    <select id="findOrderItemListByOrderId" resultType="com.devsurfer.purepicks.model.entity.order.OrderItem">
+        select id        as id,
+               order_id  as orderId,
+               sku_id    as skuId,
+               sku_name  as skuName,
+               thumb_img as thumbImg,
+               sku_price as skuPrice,
+               sku_num   as skuNum
+        from order_item
+        where order_id = #{orderId}
+          and is_deleted = 1
+    </select>
+
+    <select id="findUserOrderByUidAndStatus" resultMap="orderInfoVoMap">
+        select  id,
+                user_id,
+                nick_name,
+                order_no,
+                coupon_id,
+                total_amount,
+                coupon_amount,
+                original_total_amount,
+                freight_fee,
+                pay_type,
+                order_status,
+                receiver_name,
+                receiver_phone,
+                receiver_post_code,
+                receiver_province,
+                receiver_city,
+                receiver_district,
+                receiver_address,
+                delivery_time,
+                receive_time,
+                remark
+        from order_info
+        where user_id = #{userId}
+        <if test="orderStatus != null">
+            and order_status = #{orderStatus}
+        </if>
+        and is_deleted = 1
+    </select>
+
+    <select id="findOrderItemListInOrderId" resultType="com.devsurfer.purepicks.model.entity.order.OrderItem">
+        select  id as id,
+                order_id as orderId,
+                sku_id as skuId,
+                sku_name as skuName,
+                thumb_img as thumbImg,
+                sku_price as skuPrice,
+                sku_num as skuNum
+        from order_item
+        where order_id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        and is_deleted = 1
+    </select>
+</mapper>

@@ -84,7 +84,7 @@ public class CartController {
 
     @Operation(summary = "获取选中的购物车")
     @GetMapping("/auth/getAllChecked")
-    public ResultUtil<List<CartInfo>> getAllCheckedCartList() {
+    public ResultUtil<List<CartInfo>> getAllCheckedCarts() {
         return ResultUtil.ok(cartService.getAllChecked());
     }
 

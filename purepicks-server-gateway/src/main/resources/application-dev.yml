@@ -43,5 +43,9 @@ spring:
           uri: lb://service-cart
           predicates:
             - Path=/api/*/cart/**
+        - id: service-order
+          uri: lb://service-order
+          predicates:
+            - Path=/api/*/orderInfo/**
 auth:
   blackList: "/api/**/auth/**"

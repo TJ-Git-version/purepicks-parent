@@ -66,7 +66,10 @@ public enum ResultCodeEnum {
     PHONE_CODE_VERIFICATION_ERROR(381, "当前手机号验证码已发送, 请在规定时间内填写验证码"),
     VERIFICATION_CODE_EMPTY_ERROR(382, "验证码已失效, 请重新获取"),
     VERIFICATION_CODE_ERROR(383, "验证码错误, 请重新输入"),
-    CART_EMPTY_ERROR(384, "购物车为空,请下单后提交订单"),
+    CART_EMPTY_ERROR(384, "购物车为空,请重新提交订单"),
+    CART_NUMBER_ERROR(385, "购物车数量不一致, 请重新提交订单"),
+    CART_PRICE_ERROR(386, "购物车价格发生变动, 请重新提交订单"),
+    USER_ADDRESS_ERROR(386, "订单发货地址不存在, 请重新绑定再提交订单"),
     ;
 
     private final Integer code;

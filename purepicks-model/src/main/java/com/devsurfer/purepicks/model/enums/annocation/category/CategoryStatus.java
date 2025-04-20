@@ -1,4 +1,4 @@
-package com.devsurfer.purepicks.model.enums.category;
+package com.devsurfer.purepicks.model.enums.annocation.category;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -15,7 +15,9 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @ComponentScan("com.devsurfer.purepicks")
-@EnableFeignClients(basePackages = {"com.devsurfer.purepicks.feign.product"})
+@EnableFeignClients(basePackages = {
+        "com.devsurfer.purepicks.feign.product"
+})
 @EnableUserWebMvcConfiguration
 @EnableUserTokenFeignInterceptor
 public class ServiceCartApplication {

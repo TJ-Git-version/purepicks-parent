@@ -23,9 +23,16 @@ public class ApiController implements CartFeignClient {
 
     private final CartService cartService;
 
-    @Operation(summary = "获取选中的购物车")
     @Override
+    @Operation(summary = "获取选中的购物车")
     public List<CartInfo> getAllCheckedCartList() {
         return cartService.getAllChecked();
     }
+
+    @Override
+    @Operation(summary = "删除选中的购物车")
+    public void deleteChecked() {
+        cartService.clearCart();
+    }
+
 }

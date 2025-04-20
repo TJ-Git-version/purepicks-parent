@@ -18,7 +18,14 @@ public interface CartFeignClient {
     /**
      * 获取所有选中购物车列表
      */
-    @GetMapping("/api/order/cart/auth/getAllChecked")
+    @GetMapping("/api/order/cart/auth/getAllCheckedList")
     List<CartInfo> getAllCheckedCartList();
+
+    /**
+     * 清空选中的购物车
+     */
+    @GetMapping("/api/order/cart/auth/deleteChecked")
+    void deleteChecked();
+
 
 }

@@ -1,24 +1,24 @@
-package com.devsurfer.purepicks.model.entity.order;
+package com.devsurfer.purepicks.model.vo.order;
 
-import com.devsurfer.purepicks.model.entity.base.BaseEntity;
+import com.devsurfer.purepicks.model.entity.order.OrderItem;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
-@Tag(name = "订单信息实体", description = "订单信息实体")
-@EqualsAndHashCode(callSuper = true)
+@Tag(name = "订单信息响应实体类", description = "订单信息响应实体类")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderInfo extends BaseEntity {
+public class OrderInfoVo {
+
+    @Schema(description = "订单id")
+    private Long id;
 
     @Schema(description = "会员id")
     private Long userId;
@@ -89,19 +89,7 @@ public class OrderInfo extends BaseEntity {
     @Schema(description = "订单取消原因")
     private Date cancelReason;
 
-    public String getOrderNoStr() {
-        return String.valueOf(System.currentTimeMillis() + new Random().nextInt(10000));
-    }
-
-    public void computerTotalAmount(List<OrderItem> orderItemList) {
-        BigDecimal totalAmount = orderItemList
-                .stream()
-                .map(orderItem -> orderItem.getSkuPrice().multiply(BigDecimal.valueOf(orderItem.getSkuNum())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-        setTotalAmount(totalAmount);
-        setOriginalTotalAmount(totalAmount);
-    }
-
-
+    @Schema(description = "订单项详情")
+    private List<OrderItem> orderItemList;
 
 }
